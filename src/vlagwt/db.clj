@@ -26,7 +26,6 @@
 ;;------------------------------
 ;; utils
 ;;------------------------------
-
 (defn rev-refresh
   "Refreshs the revision `_rev` of the document if it exist."
   [doc]

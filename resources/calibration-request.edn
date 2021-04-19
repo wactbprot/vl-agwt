@@ -1,0 +1,26 @@
+{:CalibrationRequest
+ {:Type "agwt"
+  
+  ;; agwt Kunde
+  :Comment ""
+  
+  ;; evtl. agwt 
+  :PostReminder false,
+  :PreReminder true
+  :RepeatNMonth 12,
+
+  ;; agwt Format 
+  :Customer {}
+  
+  :Device
+  [;; Array da 1 oder viele
+   {:Type "CDG",
+    ;; agwt, stellt vl zur Verfügung
+    :ToDo {}
+    ;; 1 oder viele
+    :Amount 1,
+    }
+   ;; evtl. weitere Geräte 
+   ]
+  }
+ }

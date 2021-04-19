@@ -5,11 +5,15 @@
             [vlagwt.db :as db]))
 
 (defn req->cus [req] (get-in req [:body :cus]))
+
 (defn req->tdo [req] (get-in req [:body :todo]))
+
+(defn agwt-cus->vl-cus
+  [config customer]
+  customer)
 
 (defn cal-req->pla
   [config req]
-  (let [customer (req->cus req)]
-    customer
-    ))
+  (let [customer (agwt-cus->vl-cus config (req->cus req))]
+    customer))
   
