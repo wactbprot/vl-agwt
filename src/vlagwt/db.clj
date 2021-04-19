@@ -26,19 +26,6 @@
 ;;------------------------------
 ;; utils
 ;;------------------------------
-(defn exist?
-  "Returns `true` if a document with the `id` exists.
-
-  TODO: HEAD request not entire doc
-
-  Example:
-  ```clojure
-  (exist? \"foo-bar\")
-  ;; =>
-  ;; false
-  ```"
-  [id]
-  (map? (get-doc id)))
 
 (defn rev-refresh
   "Refreshs the revision `_rev` of the document if it exist."
