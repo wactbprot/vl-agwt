@@ -13,23 +13,18 @@ and use it this way:
 curl -H "$H" -X POST $URL
 ```
 
-## request cer-document [GET]
-
-```shell
-curl -H "$H"  $URL/cer/<pla-id>
-```
-
-example:
+## post calibration request object [POST]
 
 
 ```shell
-curl -H "$H"  $URL/cer/pla-2022-01-01-dummy_a
-```
+D ='{"Customer":{
+        #AGWT format
+    }, 
+     "ToDo":{
+        #VL fotmat
+    }
+}'
 
-
-## generate cer-document [POST]
-
-```shell
-curl -X POST -d '{"save": true}' -H "$H"  $URL/cer/<pla-id>
+curl -X POST -d "$D" -H "$H" $URL/cal-req
 ```
 

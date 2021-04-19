@@ -12,8 +12,8 @@
 
 (defn db-conn [c]
   (let [lt-srv (System/getenv "CMP_LT_SRV")
-        usr    (System/getenv "CAL_USR")
-        pwd    (System/getenv "CAL_PWD")]
+        usr    nil #_(System/getenv "CAL_USR")
+        pwd    nil #_(System/getenv "CAL_PWD")]
     (str (:db-prot c) "://"
          (when (and usr pwd) (str usr ":" pwd "@"))
          (or lt-srv (:db-srv c)) ":"
@@ -22,5 +22,4 @@
 
 (def config
   (let [c (get-config)]
-    (assoc c
-           :db-conn (db-conn c))))
+    (assoc c :db-conn (db-conn c))))

@@ -4,9 +4,12 @@
   (:require [vlagwt.config :as c]
             [vlagwt.db :as db]))
 
-(defn req->pla-id [req] (get-in req [:route-params :pla-id] "*"))
+(defn req->cus [req] (get-in req [:body :cus]))
+(defn req->tdo [req] (get-in req [:body :todo]))
 
-(defn pla->cer
+(defn cal-req->pla
   [config req]
-  {:res (req->pla-id req)})
+  (let [customer (req->cus req)]
+    customer
+    ))
   

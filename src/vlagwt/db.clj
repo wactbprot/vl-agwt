@@ -10,7 +10,7 @@
   "Gets a document from the db."
   [id]
   (try
-    (couch/get-document (:ltmem-conn c/config) id)
+    (couch/get-document (:db-conn c/config) id)
     (catch Exception e {:error (.getMessage e) :doc-id id})))
 
 ;;------------------------------
@@ -20,7 +20,7 @@
   "Puts a document to the long term memory."
   [doc]
   (try
-    (couch/put-document (:ltmem-conn c/config) doc)
+    (couch/put-document (:db-conn c/config) doc)
     (catch Exception e {:error (.getMessage e) :doc-id (:_id doc)})))
 
 ;;------------------------------

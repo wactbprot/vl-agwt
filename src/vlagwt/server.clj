@@ -15,7 +15,7 @@
 (defonce server (atom nil))
 
 (defroutes app-routes
-  (GET "/cer/:pla-id" [pla-id :as req] (res/response (h/pla->cer c/config req)))  
+  (POST "/cal-req" [:as req] (res/response (h/cal-req->pla c/config req)))  
   (route/resources "/")
   (route/not-found (res/response {:error "not found"})))
 
