@@ -8,14 +8,17 @@
             [ring.middleware.json :as middleware]
             [ring.util.response :as res]
             [vlagwt.config :as c]
-            [vlagwt.handler :as h])
+            [vlagwt.db :as db]
+            [vlagwt.handler :as h]
+            [vlagwt.view :as v])
     (:use   [clojure.repl])
     (:gen-class))
 
 (defonce server (atom nil))
 
 (defroutes app-routes
-  (POST "/cal-req" [:as req] (res/response (h/cal-req->pla c/config req)))  
+  (POST "/cal-req" [:as req] (res/response (h/cal-req->pla c/config req)))
+  (GET "/agwt/:pla-id" [pla-id :as req] (v/index c/config req (db/planning c/config pla-id)))
   (route/resources "/")
   (route/not-found (res/response {:error "not found"})))
 

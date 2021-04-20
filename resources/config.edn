@@ -4,7 +4,7 @@
  ;; couchdb
  :db-srv "a73434"
  :db-port 5984
- :db-db "agwt"
+ :db-db "vl_db"
  :db-prot "http"
  :db-task-design "agwt"
  :db-todo-view "ToDo"

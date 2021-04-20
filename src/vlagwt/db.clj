@@ -32,3 +32,15 @@
   (if-let [db-doc (get-doc (:_id doc))]
     (assoc doc :_rev (:_rev db-doc))
     doc))
+
+(defn planning
+  "Returns all devices."
+  ([conf]
+   (planning conf nil))
+  ([conf pla-id]
+   (let [conn (:db-conn c/config)
+         f    "share"
+         s    "PlanningId"]
+     (if pla-id
+       (couch/get-view conn f s {:key pla-id})
+       (couch/get-view conn f s)))))
