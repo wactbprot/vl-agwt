@@ -10,15 +10,18 @@
             [vlagwt.config :as c]
             [vlagwt.db :as db]
             [vlagwt.handler :as h]
+            [vlagwt.utils :as u]
             [vlagwt.view :as v])
-    (:use   [clojure.repl])
-    (:gen-class))
+  (:use   [clojure.repl])
+  (:gen-class))
 
 (defonce server (atom nil))
 
 (defroutes app-routes
-  (POST "/cal-req" [:as req] (res/response (h/cal-req->pla c/config req)))
-  (GET "/agwt/:pla-id" [pla-id :as req] (v/index c/config req (db/planning c/config pla-id)))
+  (GET "/cal-req/:req-id" [req-id :as req] (->> req-id
+                                                (db/cal-req c/config)
+                                                (u/db-req->res-vec)
+                                                (v/index c/config req)))
   (route/resources "/")
   (route/not-found (res/response {:error "not found"})))
 

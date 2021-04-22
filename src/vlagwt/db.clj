@@ -33,14 +33,10 @@
     (assoc doc :_rev (:_rev db-doc))
     doc))
 
-(defn planning
-  "Returns all devices."
-  ([conf]
-   (planning conf nil))
-  ([conf pla-id]
-   (let [conn (:db-conn c/config)
-         f    "share"
-         s    "PlanningId"]
-     (if pla-id
-       (couch/get-view conn f s {:key pla-id})
-       (couch/get-view conn f s)))))
+(defn cal-req
+  "Returns all docs belonging to a calibration request."
+  [conf req-id]
+  (let [conn (:db-conn c/config)
+        f    "vl-agwt"
+        s    "RequestId"]
+    (couch/get-view conn f s {:key req-id})))

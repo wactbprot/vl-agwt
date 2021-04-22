@@ -30,12 +30,13 @@
    [:div {:class "hero-body"}
       [:div {:class "container"}
        [:h1 {:class "title"} (:main-title conf)]
-       [:h2 {:class "subtitle"} (str "Planning: " (utils/req->pla-id req) )]]]])
+       [:h2 {:class "subtitle"} (str "calibration request: " (utils/req->req-id req) )]]]])
 
 (defn index
   [conf req data]
   (hp/html5
    (page-header conf req)
    [:body
+    (prn data)
     (index-title conf req)
     (hp/include-js "/js/jquery-3.5.1.min.js")]))
