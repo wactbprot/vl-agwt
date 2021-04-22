@@ -9,7 +9,7 @@
             [ring.util.response :as res]
             [vlagwt.config :as c]
             [vlagwt.db :as db]
-            [vlagwt.handler :as h]
+            [vlagwt.score :as s]
             [vlagwt.utils :as u]
             [vlagwt.view :as v])
   (:use   [clojure.repl])
@@ -18,10 +18,8 @@
 (defonce server (atom nil))
 
 (defroutes app-routes
-  (GET "/cal-req/:req-id" [req-id :as req] (->> req-id
-                                                (db/cal-req c/config)
-                                                (u/db-req->res-vec)
-                                                (v/index c/config req)))
+  (GET "/cal-req/ui/:req-id" [req-id :as req] (v/index c/config req (h/cal-req c/config req)))
+  (GET "/cal-req/raw/:req-id" [req-id :as req] (res/response (h/cal-req c/config req)))
   (route/resources "/")
   (route/not-found (res/response {:error "not found"})))
 

@@ -37,6 +37,6 @@
   (hp/html5
    (page-header conf req)
    [:body
-    (prn data)
     (index-title conf req)
+    [:pre (str data)]
     (hp/include-js "/js/jquery-3.5.1.min.js")]))

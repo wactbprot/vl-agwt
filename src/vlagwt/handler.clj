@@ -1,19 +1,15 @@
 (ns vlagwt.handler
   ^{:author "Thomas Bock >thomas.bock@ptb.de>"
     :doc "Request handler."}
-  (:require [vlagwt.config :as c]
-            [vlagwt.db :as db]))
-
-(defn req->cus [req] (get-in req [:body :cus]))
-
-(defn req->tdo [req] (get-in req [:body :todo]))
-
-(defn agwt-cus->vl-cus
-  [config customer]
-  customer)
-
-(defn cal-req->pla
-  [config req]
-  (let [customer (agwt-cus->vl-cus config (req->cus req))]
-    customer))
+  (:require [vlagwt.db :as db]
+            [vlagwt.score :as s]
+            [vlagwt.utils :as u]))
   
+
+(defn cal-req
+  [config req]
+  (->> (u/req->req-id req)
+       (db/cal-req c/config)
+       (u/db-req->res-vec)
+       (s/result config req)
+       (s/hash config req)))

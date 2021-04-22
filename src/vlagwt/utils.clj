@@ -1,5 +1,5 @@
 (ns vlagwt.utils
-  ^{:author "Thomas Bock >thomas.bock@ptb.de>"
+  ^{:author "Thomas Bock <thomas.bock@ptb.de>"
     :doc "Utils."}
   (:require [clojure.string :as string]))
 
@@ -7,25 +7,14 @@
 
 (defn db-req->res-vec [db-req] (mapv :value db-req))
 
-(defn score
-  "
-  NEU(10, Neu),
-  EINGEREICHT(20, Eingereicht),
-  MESSUNG(30, In Messung),
-  ANALYSE(40, In Analyse),
-  ZERTIFIKAT_ERTEILT(50, Zertifikat verfügbar),
-  KALIBRIERUNG_FEHLER(51, Kalibrierung fehlerhaft),
-  ZERTIFIKAT_ARCHIVIERT(60, Zertifikat archiviert);"
-  [m]
-  (assoc m :Score 
-         (cond
-           (:Planning m) 10
-           (:Bureaucracy m) 20
-           (:Measurement m) 30
-           (:Analysis m) 35
-           (:Result m) 40
-           (:Certificate m) 50
-           :else 0)))
-  
-(defn res-vec->score-vec [v] (mapv score v))
-  
+(defn number-of [v kw] (count (filter kw v)))
+
+;; https://gist.github.com/hozumi/1472865
+(defn sha1-str [s]
+  (->> (-> "sha1"
+           java.security.MessageDigest/getInstance
+           (.digest (.getBytes s)))
+       (map #(.substring
+              (Integer/toString
+               (+ (bit-and % 0xff) 0x100) 16) 1))
+       (apply str)))
