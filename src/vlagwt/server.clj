@@ -8,6 +8,7 @@
             [ring.middleware.json :as middleware]
             [ring.util.response :as res]
             [vlagwt.config :as c]
+            [vlagwt.handler :as h]
             [vlagwt.view :as v])
   (:use   [clojure.repl])
   (:gen-class))
