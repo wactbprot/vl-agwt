@@ -1,13 +1,31 @@
 {:CalibrationRequest
  {:Type "agwt"
-  
+   :RequestId "34330b0e9f16c21007b37f2d562082e4"
+  ;; Im Moment würde ich das so machen wollen:
+  ;; aus dem CalibrationRequest wird erst ein
+  ;; Planungsdokument, wenn erfolgreich eine
+  ;; Email versendet wurde
+  :MailTo "thomas.bock@ptb.de"
+  ;; bzw. später natürlich "vacuum.cal@ptb.de"
+  ;; zum testen der Schnittstelle auch alexander.oppermann@ptb.de
+
+  ;; Einen Wunschtermin (desired) könnte ich in die
+  ;; Info-Mail schreiben, das könnte dann bei der
+  ;; Terminvergabe berücksichtigung finden
+  :Date [{
+          :Type "request"
+          :Value "2021-04-23"}
+         {
+          :Type "desired"
+          :Value "2022-01-01"}
+         ]
+
   ;; agwt Kunde
   :Comment ""
   
   ;; evtl. agwt  
-  :PostReminder false,
+  :PostReminder true
   :PreReminder true
-  :RepeatNMonth 12
 
   :Customer {;; agwt Format + Gender key}
   
@@ -19,6 +37,8 @@
     :Amount 1
     }
    ;; evtl. weitere Geräte 
+    }
    ]
+  }
   }
  }
