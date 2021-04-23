@@ -14,12 +14,12 @@
        (db/cal-req c/config)
        (u/db-req->res-vec)
        (s/result c/config req)
-       (s/hash c/config req)))
+       (s/id c/config req)))
 
 (defn pla-doc
   [config req]
   (let[cal-req (u/req->cal-req req)]
-    (if-let [err-msg (:error (p/check c/config ))]
+    (if-let [err-msg (:error (p/check c/config cal-req))]
       {:error err-msg}
       (let [report (m/send-message (:smtp-host-map c/config)
                                    (p/cal-req->mail c/config cal-req))]

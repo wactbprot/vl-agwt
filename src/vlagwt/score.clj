@@ -37,6 +37,6 @@
 (defn result [config req v]
   (assoc (into {} v) :Score (max-score v)))
 
-(defn hash [config req m]
+(defn id [config req m]
   (assoc m :RequestId (u/sha1-str (u/req->req-id req))))
   
