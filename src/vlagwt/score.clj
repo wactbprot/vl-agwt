@@ -5,7 +5,7 @@
             [vlagwt.utils :as u]))
 
 (defn number-of-calib [v]
-  (:Calibrations  (first (filter  :Calibrations v))))
+  (:Calibrations (first (filter :Calibrations v))))
 
 (defn all-certs-ready? [v] (= (u/number-of v :Certificate) (number-of-calib v)))
 
@@ -31,7 +31,6 @@
 (defn check-certs [v] (if (all-certs-ready? v) 50 45))
 
 (defn max-score [v]
- 
   (let [i (apply max (mapv score v))]
     (if (> 60 i 40) (check-certs v) i)))
 

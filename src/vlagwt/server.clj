@@ -1,5 +1,5 @@
 (ns vlagwt.server
-  ^{:author "Thomas Bock >thomas.bock@ptb.de>"
+  ^{:author "Thomas Bock <thomas.bock@ptb.de>"
     :doc "Server start stop. Routing."}
   (:require [compojure.route :as route]
             [compojure.core :refer :all]
@@ -8,9 +8,7 @@
             [ring.middleware.json :as middleware]
             [ring.util.response :as res]
             [vlagwt.config :as c]
-            [vlagwt.db :as db]
-            [vlagwt.score :as s]
-            [vlagwt.utils :as u]
+            [vlagwt.handler :as h]
             [vlagwt.view :as v])
   (:use   [clojure.repl])
   (:gen-class))
