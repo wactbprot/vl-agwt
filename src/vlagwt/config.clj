@@ -22,4 +22,6 @@
 
 (def config
   (let [c (get-config)]
-    (assoc c :db-conn (db-conn c))))
+    (assoc c
+           :db-conn (db-conn c)
+           :smtp-host-map {:host (:smtp-host c)})))

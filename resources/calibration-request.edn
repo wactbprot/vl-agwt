@@ -27,18 +27,20 @@
   :PostReminder true
   :PreReminder true
 
-  :Customer {;; agwt Format + Gender key}
+  :Customer {;; agwt Format + Gender key
+             }
   
   :Device
   [;; Array da 1 oder viele
    {
-    :ToDo {;; agwt, stellt vl zur Verfügung}
+    :ToDo {;; agwt, stellt vl zur Verfügung
+           }
     ;; 1 oder viele
     :Amount 1
     }
-   ;; evtl. weitere Geräte 
-    }
+   ;; evtl. weitere Geräte
    ]
   }
-  }
  }
+  
+ 

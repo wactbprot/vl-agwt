@@ -16,9 +16,9 @@
 (defonce server (atom nil))
 
 (defroutes app-routes
-  (GET "/cal-req/ui/:req-id" [req-id :as req] (v/index c/config req (h/cal-req c/config req)))
-  (GET "/cal-req/raw/:req-id" [req-id :as req] (res/response (h/cal-req c/config req)))
-  (POST "/cal-req" [:as req] (res/response (h/pla-doc req)))
+  (GET "/cal-req/ui/:req-id" [req-id :as req]  (v/index c/config req (h/cal-req c/config req)))
+  (GET "/cal-req/raw/:req-id" [req-id :as req] (res/response         (h/cal-req c/config req)))
+  (POST "/cal-req" [:as req]                   (res/response         (h/pla-doc req)))
   (route/resources "/")
   (route/not-found (res/response {:error "not found"})))
 
