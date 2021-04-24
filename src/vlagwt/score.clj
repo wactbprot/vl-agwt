@@ -1,6 +1,7 @@
 (ns vlagwt.score
   ^{:author "Thomas Bock <thomas.bock@ptb.de>"
-    :doc "Utils."}
+    :doc "Finds the max score: the currebt state of the calibration
+    request."}
   (:require [vlagwt.config :as c]
             [clojure.string :as string]
             [vlagwt.utils :as u]))
@@ -34,15 +35,7 @@
   (let [i (apply max (mapv score v))]
     (if (> 60 i 40) (check-certs v) i)))
 
-(defn result
-  ([req v]
-   (result c/config req  v))
-  ([conf req v]
-   (assoc (into {} v) :Score (max-score v))))
+(defn result [req v] (assoc (into {} v) :Score (max-score v)))
 
-(defn id
-  ([req m]
-   (id c/config req m))
-  ([config req m]
-   (assoc m :RequestId (u/sha1-str (u/req->req-id req)))))
+(defn id [req m] (assoc m :RequestId (u/sha1-str (u/req->req-id req))))
   

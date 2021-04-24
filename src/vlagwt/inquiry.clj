@@ -36,12 +36,6 @@
 
 (defn inq->doc-id [m]  (str "inq-" (inq->id m)))
 
-(defn data-ok?
-  ([inq]
-   (data-ok? c/config inq))
-  ([config m]
-   (-> m id-ok? date-ok? device-ok? mail-to-ok?)))
-
 (defn inq->mail-body
   ([inq]
    (inq->mail-body c/config inq)) 
