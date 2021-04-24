@@ -14,11 +14,16 @@
        (s/result req)
        (s/id req)))
 
-(defn save-request-doc [req]
+(defn save-pla-doc [req]
   (let [inq  (u/req->inq req)
         id   (i/inq->doc-id inq)
         mail (i/inq->mail-body inq)]
-    (and
-      (not (db/exist? id))
-      (i/data-ok? inq)
-      (i/mail-ok? (i/send-mail! mail)))))
+    (cond
+      (db/exist? id) {:error "Document alredy exist."}
+      (not (i/id-ok? inq)) {:error "Malformed or missing RequestId"}
+      (not (i/date-ok? inq)) {:error "Wrong or missing Date section"}
+      (not (i/device-ok? inq)) {:error "Wrong or missing Device section"}
+      (not (i/mail-to-ok? inq)) {:error "Malformed or missing MailTo"}
+      (not (i/mail-ok? (i/send-mail! mail))) {:error "Failed notification Email"}
+      #_(not (db/saved? pla-doc))
+      :success {:ok true})))

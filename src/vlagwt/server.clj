@@ -17,8 +17,8 @@
 
 (defroutes app-routes
   (GET "/status/ui/:req-id"  [req-id :as req] (v/index  req (h/cal-req  req)))
-  (GET "/status/raw/:req-id" [req-id :as req] (res/response         (h/cal-req  req)))
-  (POST "/request"           [:as req]        (res/response         (h/save-request-doc req)))
+  (GET "/status/raw/:req-id" [req-id :as req] (res/response (h/cal-req  req)))
+  (POST "/request"           [:as req]        (res/response (h/save-pla-doc req)))
   (route/resources "/")
   (route/not-found (res/response {:error "not found"})))
 
