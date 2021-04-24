@@ -1,11 +1,11 @@
 (ns vlagwt.score
   ^{:author "Thomas Bock <thomas.bock@ptb.de>"
     :doc "Utils."}
-  (:require [clojure.string :as string]
+  (:require [vlagwt.config :as c]
+            [clojure.string :as string]
             [vlagwt.utils :as u]))
 
-(defn number-of-calib [v]
-  (:Calibrations (first (filter :Calibrations v))))
+(defn number-of-calib [v] (:Calibrations (first (filter :Calibrations v))))
 
 (defn all-certs-ready? [v] (= (u/number-of v :Certificate) (number-of-calib v)))
 
@@ -17,7 +17,7 @@
   ANALYSE(40, In Analyse),
   ZERTIFIKAT_ERTEILT(50, Zertifikat verfügbar),
   KALIBRIERUNG_FEHLER(51, Kalibrierung fehlerhaft),
-  ZERTIFIKAT_ARCHIVIERT(60, Zertifikat archiviert);"
+  ZERTIFIKAT_ARCHIVIERT(60, Zertifikat archiviert); set by agwt"
   [m]
   (cond
     (:Planning m) 10
@@ -34,9 +34,15 @@
   (let [i (apply max (mapv score v))]
     (if (> 60 i 40) (check-certs v) i)))
 
-(defn result [config req v]
-  (assoc (into {} v) :Score (max-score v)))
+(defn result
+  ([req v]
+   (result c/config req  v))
+  ([conf req v]
+   (assoc (into {} v) :Score (max-score v))))
 
-(defn id [config req m]
-  (assoc m :RequestId (u/sha1-str (u/req->req-id req))))
+(defn id
+  ([req m]
+   (id c/config req m))
+  ([config req m]
+   (assoc m :RequestId (u/sha1-str (u/req->req-id req)))))
   

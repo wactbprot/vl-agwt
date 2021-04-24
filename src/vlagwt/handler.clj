@@ -3,26 +3,22 @@
     :doc "Request handler."}
   (:require [vlagwt.db :as db]
             [vlagwt.config :as c]
-            [postal.core :as m]
-            [vlagwt.planning :as p]
+            [vlagwt.inquiry :as i]
             [vlagwt.score :as s]
             [vlagwt.utils :as u]))
 
-(defn cal-req
-  [config req]
+(defn cal-req [req]
   (->> (u/req->req-id req)
-       (db/cal-req c/config)
+       (db/cal-req)
        (u/db-req->res-vec)
-       (s/result c/config req)
-       (s/id c/config req)))
+       (s/result req)
+       (s/id req)))
 
-(defn pla-doc
-  [config req]
-  (let[cal-req (u/req->cal-req req)]
-    (if-let [err-msg (:error (p/check c/config cal-req))]
-      {:error err-msg}
-      (let [report (m/send-message (:smtp-host-map c/config)
-                                   (p/cal-req->mail c/config cal-req))]
-        (if (zero? (:code report))
-          {:ok true :next "convert and save pla doc"}
-          report)))))
+(defn save-request-doc [req]
+  (let [inq  (u/req->inq req)
+        id   (i/inq->doc-id inq)
+        mail (i/inq->mail-body inq)]
+    (and
+      (not (db/exist? id))
+      (i/data-ok? inq)
+      (i/mail-ok? (i/send-mail! mail)))))

@@ -1,8 +1,8 @@
 (ns vlagwt.view
-  (:require
-   [hiccup.form :as hf]
-   [hiccup.page :as hp]
-   [vlagwt.utils :as utils]))
+  (:require [vlagwt.config :as c]
+            [hiccup.form :as hf]
+            [hiccup.page :as hp]
+            [vlagwt.utils :as utils]))
 
 (defn page-header
   [conf req]
@@ -33,10 +33,12 @@
        [:h2 {:class "subtitle"} (str "calibration request: " (utils/req->req-id req) )]]]])
 
 (defn index
-  [conf req data]
-  (hp/html5
-   (page-header conf req)
-   [:body
-    (index-title conf req)
-    [:pre (str data)]
-    (hp/include-js "/js/jquery-3.5.1.min.js")]))
+  ([req data]
+   (index c/config req data))
+  ([conf req data]
+   (hp/html5
+    (page-header conf req)
+    [:body
+     (index-title conf req)
+     [:pre (str data)]
+     (hp/include-js "/js/jquery-3.5.1.min.js")])))

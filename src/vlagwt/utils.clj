@@ -3,10 +3,9 @@
     :doc "Utils."}
   (:require [clojure.string :as string]))
 
-(defn req->cal-req [req] (get-in req [:body]))
+(defn req->inq [req] (get-in req [:body]))
 
 (defn req->req-id [req] (get-in req [:route-params :req-id]))
-
 
 (defn db-req->res-vec [db-req] (mapv :value db-req))
 

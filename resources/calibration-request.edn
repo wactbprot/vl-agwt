@@ -6,6 +6,8 @@
   ;; Planungsdokument, wenn erfolgreich eine
   ;; Email versendet wurde
   :MailTo "thomas.bock@ptb.de"
+  ;; sollte array werden:
+  ;; --> :MailTo ["thomas.bock@ptb.de" "vacuum.cal@ptb.de"alexander.oppermann@ptb.de
   ;; bzw. später natürlich "vacuum.cal@ptb.de"
   ;; zum testen der Schnittstelle auch alexander.oppermann@ptb.de
 

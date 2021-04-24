@@ -35,8 +35,12 @@
 
 (defn cal-req
   "Returns all docs belonging to a calibration request."
-  [conf req-id]
-  (let [conn (:db-conn c/config)
-        f    "vl-agwt"
-        s    "RequestId"]
-    (couch/get-view conn f s {:key req-id})))
+  ([id]
+   (cal-req c/config id))
+  ([conf id]
+   (let [conn (:db-conn conf)
+         f    "vl-agwt" 
+         s    "RequestId"]
+     (couch/get-view conn f s {:key id}))))
+
+(defn exist? [id] (map? (get-doc id)))
