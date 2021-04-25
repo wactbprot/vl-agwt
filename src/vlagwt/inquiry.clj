@@ -14,9 +14,14 @@
   (che/encode inq))
 
 (defn inq->id [m] (get-in m [:CalibrationRequest :RequestId]))
+
 (defn inq->date [m] (get-in m [:CalibrationRequest :Date]))
+
 (defn inq->device [m] (get-in m [:CalibrationRequest :Device]))
+
 (defn inq->mail-to [m] (get-in m [:CalibrationRequest :MailTo]))
+
+(defn inq->customer-name [m] (get-in m [:CalibrationRequest :Customer :Name]))
 
 (defn id-ok? [m]
   (when-let [d (inq->id m)]
@@ -40,10 +45,13 @@
   ([inq]
    (inq->mail-body c/config inq)) 
   ([config m]
-   {:from "vl-agwt@berlin.ptb.de"
-    :to [(inq->mail-to m)]
-    :subject "Kalibrieranfrage AGWT"
-    :body "Eine Anfrage für eien Kalibrierung ..."}))
+   (let [to   (inq->mail-to m)
+         cust (inq->customer-name m)]
+   {:from    "vl-agwt@berlin.ptb.de" ;; -> conf
+    :to      (if (map? to) to [to])
+    :subject (str "Kalibrieranfrage AGWT " cust)
+    :body    (str "Eine Anfrage für eine Kalibrierung von "
+                  cust)})))
 
 (defn send-mail!
   ([body]
