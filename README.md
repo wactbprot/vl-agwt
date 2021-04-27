@@ -1,7 +1,5 @@
 # An agwt to vl REST interface
 
-
-
 Set:
 
 ```shell
@@ -12,7 +10,7 @@ URL=http://localhost:9099
 ## available calibration procedures (ToDo)
 
 ```shell
-curl -H "$H" -d -X POST $URL/todo
+curl -H "$H" $URL/todo
 ```
 
 ## request a calibration
@@ -34,14 +32,14 @@ D="{\"CalibrationRequest\":{\"Comment\":\"\",
 Send the request:
 
 ```shell
-curl -H "$H" -d -X POST $URL/request
+curl -H "$H" -d "$D" -X POST $URL/request
 ```
 
-## request the dcc
+## request the dcc(s)
 
 
 ```shell
-curl -H "$H" -d -X POST $URL/dcc/<RequestId>
+curl -H "$H"  $URL/dcc/<RequestId>
 ```
 
 
