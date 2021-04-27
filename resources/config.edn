@@ -11,4 +11,6 @@
  :db-req-view "RequestId"
  :db-dcc-design "vl-agwt"
  :db-dcc-view "DCC"
+ :db-todo-design "vl-agwt"
+ :db-todo-view "ToDo"
  }

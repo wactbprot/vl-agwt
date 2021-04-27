@@ -7,7 +7,9 @@
 
 (defn req->req-id [req] (get-in req [:route-params :req-id]))
 
-(defn db-req->res-vec [db-req] (mapv :value db-req))
+(defn db-req->value [db-req] (mapv :value db-req))
+
+(defn db-req->key [db-req] (mapv :key db-req))
 
 (defn number-of [v kw] (count (filter kw v)))
 

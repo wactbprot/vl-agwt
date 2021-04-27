@@ -49,4 +49,15 @@
   ([{conn :db-conn d :db-dcc-design v :db-dcc-view} id]
    (couch/get-view conn d v {:key id})))
 
+
+(defn todo
+  "Returns all dcc belonging to a calibration request."
+  ([id]
+   (todo c/config id))
+  ([{conn :db-conn d :db-todo-design v :db-todo-view} id]
+   (prn d)
+   (if (= id :all)
+     (couch/get-view conn d v)
+     (couch/get-view conn d v {:key id}))))
+
 (defn exist? [id] (map? (get-doc id)))

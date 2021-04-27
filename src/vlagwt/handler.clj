@@ -11,13 +11,15 @@
 (defn cal-req [req]
   (->> (u/req->req-id req)
        (db/cal-req) 
-       (u/db-req->res-vec)
+       (u/db-req->value)
        (s/result req)
        (s/id req)))
 
 (defn all-req [req] (u/unique-req-id (db/cal-req :all)))
 
 (defn dcc [req] (dcc/get-xml (db/dcc (u/req->req-id req))))
+
+(defn todo [req] (u/db-req->key (db/todo :all)))
 
 (defn save-pla-doc [req]
   (let [inq  (u/req->inq req)
