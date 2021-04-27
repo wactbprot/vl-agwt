@@ -7,8 +7,8 @@
  :db-port 5984
  :db-db "vl_db"
  :db-prot "http"
- :db-task-design "agwt"
- :db-todo-view "ToDo"
- :db-customer-design "agwt"
- :db-mpds-view "Customer"
-}
+ :db-req-design "vl-agwt"
+ :db-req-view "RequestId"
+ :db-dcc-design "vl-agwt"
+ :db-dcc-view "DCC"
+ }

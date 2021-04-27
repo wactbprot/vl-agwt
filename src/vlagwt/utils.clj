@@ -20,3 +20,6 @@
               (Integer/toString
                (+ (bit-and % 0xff) 0x100) 16) 1))
        (apply str)))
+
+
+(defn unique-req-id [l] (group-by :key l))

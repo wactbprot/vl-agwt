@@ -27,13 +27,14 @@
     (:Analysis m) 40
     (:Result m) 40
     (:Certificate m) 45
+    (:DCC m) 50
     :else 0))
 
-(defn check-certs [v] (if (all-certs-ready? v) 50 45))
+(defn check-certs [v] (if (all-certs-ready? v) 49 45))
 
 (defn max-score [v]
   (let [i (apply max (mapv score v))]
-    (if (> 60 i 40) (check-certs v) i)))
+    (if (= i 45) (check-certs v) i)))
 
 (defn result [req v] (assoc (into {} v) :Score (max-score v)))
 

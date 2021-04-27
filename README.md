@@ -8,6 +8,9 @@ Set:
 H="Content-Type: application/json"
 URL=http://localhost:9099
 ```
+
+## request a calibration
+
 Define the calibration request:
 
 ```shell
@@ -27,6 +30,14 @@ Send the request:
 ```shell
 curl -H "$H" -d -X POST $URL/request
 ```
+
+## request the dcc
+
+
+```shell
+curl -H "$H" -d -X POST $URL/dcc/<RequestId>
+```
+
 
 ## Installation
 

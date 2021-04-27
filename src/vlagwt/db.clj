@@ -37,10 +37,16 @@
   "Returns all docs belonging to a calibration request."
   ([id]
    (cal-req c/config id))
-  ([conf id]
-   (let [conn (:db-conn conf)
-         f    "vl-agwt" 
-         s    "RequestId"]
-     (couch/get-view conn f s {:key id}))))
+  ([{conn :db-conn d :db-req-design v :db-req-view} id]
+   (if (= id :all)
+     (couch/get-view conn d v)
+     (couch/get-view conn d v {:key id}))))
+
+(defn dcc
+  "Returns all dcc belonging to a calibration request."
+  ([id]
+   (dcc c/config id))
+  ([{conn :db-conn d :db-dcc-design v :db-dcc-view} id]
+   (couch/get-view conn d v {:key id})))
 
 (defn exist? [id] (map? (get-doc id)))

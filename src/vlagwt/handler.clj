@@ -1,18 +1,23 @@
 (ns vlagwt.handler
   ^{:author "Thomas Bock <thomas.bock@ptb.de>"
     :doc "Request handler."}
-  (:require [vlagwt.db :as db]
+  (:require [vlagwt.db :as db] 
             [vlagwt.config :as c]
             [vlagwt.inquiry :as i]
+            [vlagwt.dcc :as dcc]
             [vlagwt.score :as s]
             [vlagwt.utils :as u]))
 
 (defn cal-req [req]
   (->> (u/req->req-id req)
-       (db/cal-req)
+       (db/cal-req) 
        (u/db-req->res-vec)
        (s/result req)
        (s/id req)))
+
+(defn all-req [req] (u/unique-req-id (db/cal-req :all)))
+
+(defn dcc [req] (dcc/get-xml (db/dcc (u/req->req-id req))))
 
 (defn save-pla-doc [req]
   (let [inq  (u/req->inq req)
