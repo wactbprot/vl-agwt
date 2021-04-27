@@ -35,7 +35,7 @@
 
   ;; Einen Wunschtermin (desired) könnte ich in die
   ;; Info-Mail schreiben das könnte dann bei der
-  ;; Terminvergabe berücksichtigung finden
+  ;; Terminvergabe Berücksichtigung finden
   :Date [{:Type "desired" :Value "2021-11-15"}]
   :Maintainer "Samuel Eickelberg"
   :Device
