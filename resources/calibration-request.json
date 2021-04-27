@@ -1,0 +1,50 @@
+{
+	"CalibrationRequest": {
+		"RequestId": "34330b0e9f16c21007b37f2d562082e4",
+		"Date": [
+			{
+				"Type": "desired",
+				"Value": "2021-11-15"
+			}
+		],
+		"Customer": {
+			"Address": {
+				"Town": "Berlin",
+				"Street": "Abbestr. 2-12",
+				"Zipcode": "10587",
+				"Land": "DE",
+				"District": "BE",
+				"Category": null
+			},
+			"Comment": "Testdaten von AnGeWaNt",
+			"Contact": {
+				"Name": "Samuel Eickelberg",
+				"Gender": "m",
+				"Email": "samuel.eickelberg@ptb.de",
+				"Phone": "030 3481-7760",
+				"Fax": null
+			},
+			"Lang": "de",
+			"Name": "Physikalisch-Technische Bundesanstalt",
+			"AddName": "AG 8.54",
+			"Sign": null,
+			"Type": "Verwender",
+			"DebitorenNr": null,
+			"Shipping": null,
+			"Invoice": null
+		},
+		"Comment": "Testdaten von AnGeWaNt",
+		"Device": [
+			{
+				"Type": null,
+				"ToDoName": "CDG von: 0.001mbar bis: 0.1mbar mit 15 Messpunkten",
+				"Amount": 1
+			}
+		],
+		"Maintainer": "Samuel Eickelberg",
+		"RepeatMonth": 12,
+		"PreReminder": true,
+		"Generated": false,
+		"PostReminder": false
+	}
+}
