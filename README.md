@@ -9,6 +9,12 @@ H="Content-Type: application/json"
 URL=http://localhost:9099
 ```
 
+## available calibration procedures (ToDo)
+
+```shell
+curl -H "$H" -d -X POST $URL/todo
+```
+
 ## request a calibration
 
 Define the calibration request:
