@@ -32,11 +32,17 @@
 
 (defn inq->mail-to [m] (get-in (inq->main m) [:MailTo]))
 
-(defn inq->customer-name [m] (get-in (inq->main m) [:Customer :Name]))
+(defn inq->customer [m] (get-in (inq->main m) [:Customer]))
+  
+(defn inq->customer-name [m] (get-in (inq->customer m) [:Name]))
 
-(defn inq->customer-mail [m] (get-in (inq->main m) [:Customer :Contact :Email]))
+(defn inq->customer-mail [m] (get-in (inq->customer m) [:Contact :Email]))
 
 (defn inq->devices [m] (get-in (inq->main m) [:Device]))
+
+(defn inq->comment [m] (not-empty (get-in (inq->main m) [:Comment])))
+                         
+(defn date-vec->desired-date [v] (:Value (first (filter #(= (keyword (:Type %)) :desired) v))))
 
 ;;----------------------------------------------------------
 ;; checks
@@ -45,13 +51,17 @@
   (when-let [d (inq->id m)]
     (when (re-find #"[0-9a-f]{5,40}" d) true)))
 
+(defn main-parts-ok? [m]
+  (and (map? (not-empty (inq->customer m)))
+       (vector? (not-empty (inq->device m))))) 
+
 (defn device-amount-ok? [m]
   (when-let [d (inq->devices m)]
     (= (count d) (count (filter (comp integer? :Amount) d)))))
     
 (defn date-ok? [m]
-  (when-let [d (inq->date m)]
-    (when (vector? d) true)))
+  (when-let [d (date-vec->desired-date (not-empty (inq->date m)))]
+    (when  (re-find #"^\d{4}-([0]\d|1[0-2])-([0-2]\d|3[01])$" d) true)))
 
 (defn device-ok? [m]
   (when-let [d (inq->device m)]
@@ -70,13 +80,17 @@
   ([inq]
    (inq->mail-body c/config inq)) 
   ([config m]
-   (let [to   (inq->mail-to m)
-         cust (inq->customer-name m)]
-   {:from    "vl-agwt@berlin.ptb.de" ;; -> conf
-    :to      (:notif-mail config)
-    :subject (str "Kalibrieranfrage AGWT " cust)
-    :body    (str "Eine Anfrage für eine Kalibrierung von "
-                  cust)})))
+   (let [to      (inq->mail-to m)
+         cust    (inq->customer-name m)
+         comment (inq->comment m)]
+     (prn (:notif-mail config))
+     {:from    "vl-proxy@berlin.ptb.de" ;; -> conf
+      :to      (:notif-mail config)
+      :subject (str "Kalibrieranfrage AGWT " cust)
+      :body    (str "Eine Anfrage für eine Kalibrierung des Kunden:\n   "
+                    cust "\nhat uns über die AnGeWaNt Schnittstelle erreicht."
+                    (when comment
+                      (str " Die Anfrage wurde mit folgendem Kommentar versehen:\n   " comment)))})))
 
 (defn send-mail!
   ([body]

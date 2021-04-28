@@ -26,9 +26,10 @@
         id   (i/inq->doc-id inq)
         mail (i/inq->mail-body inq)]
     (cond
-      (db/exist? id) {:error "Document alredy exist."}
+      ;;(db/exist? id) {:error "Document alredy exist."}
       (not (i/id-ok? inq)) {:error "Malformed or missing RequestId"}
-      (not (i/date-ok? inq)) {:error "Wrong or missing Date section"}
+      (not (i/main-parts-ok? inq)) {:error "Missing, wrong or empty customer and/or device section"}
+      (not (i/date-ok? inq)) {:error "Wrong, malformed or missing Date section"}
       (not (i/device-ok? inq)) {:error "Wrong or missing Device section"}
       (not (i/customer-mail-ok? inq)) {:error "Malformed or missing customer Email"}
       (not (i/mail-ok? (i/send-mail! mail))) {:error "Failed notification Email"}
