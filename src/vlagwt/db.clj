@@ -55,7 +55,6 @@
   ([id]
    (todo c/config id))
   ([{conn :db-conn d :db-todo-design v :db-todo-view} id]
-   (prn d)
    (if (= id :all)
      (couch/get-view conn d v)
      (couch/get-view conn d v {:key id}))))

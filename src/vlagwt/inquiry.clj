@@ -38,11 +38,15 @@
 
 (defn inq->customer-mail [m] (get-in (inq->customer m) [:Contact :Email]))
 
+(defn inq->customer-sign [m] (get-in (inq->customer m) [:Sign]))
+
 (defn inq->devices [m] (get-in (inq->main m) [:Device]))
 
 (defn inq->comment [m] (not-empty (get-in (inq->main m) [:Comment])))
                          
 (defn date-vec->desired-date [v] (:Value (first (filter #(= (keyword (:Type %)) :desired) v))))
+
+(defn inq->doc-id [m]  (str "pla-" (inq->id m)))
 
 ;;----------------------------------------------------------
 ;; checks
@@ -63,15 +67,14 @@
   (when-let [d (date-vec->desired-date (not-empty (inq->date m)))]
     (when  (re-find #"^\d{4}-([0]\d|1[0-2])-([0-2]\d|3[01])$" d) true)))
 
-(defn device-ok? [m]
-  (when-let [d (inq->device m)]
-    (when (vector? d) true)))
-
 (defn customer-mail-ok? [m]
   (when-let [d (inq->customer-mail m)]
     (when (re-find #"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$" d) true)))
 
-(defn inq->doc-id [m]  (str "inq-" (inq->id m)))
+(defn customer-sign-ok? [m]
+  (when-let [d (inq->customer-sign m)]
+    (when (re-find #"^[A-Z0-9\_\.]{2,15}$" d) true)))
+
 
 ;;----------------------------------------------------------
 ;; notification mail
@@ -83,7 +86,6 @@
    (let [to      (inq->mail-to m)
          cust    (inq->customer-name m)
          comment (inq->comment m)]
-     (prn (:notif-mail config))
      {:from    "vl-proxy@berlin.ptb.de" ;; -> conf
       :to      (:notif-mail config)
       :subject (str "Kalibrieranfrage AGWT " cust)

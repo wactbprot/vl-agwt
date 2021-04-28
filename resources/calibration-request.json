@@ -27,7 +27,7 @@
 			"Lang": "de",
 			"Name": "Physikalisch-Technische Bundesanstalt",
 			"AddName": "AG 8.54",
-			"Sign": null,
+			"Sign": "PTB_AG_8.54",
 			"Type": "Verwender",
 			"DebitorenNr": null,
 			"Shipping": null,
