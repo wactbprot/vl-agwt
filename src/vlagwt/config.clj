@@ -10,7 +10,10 @@
   ([f]
    (-> f slurp edn/read-string)))
 
-(defn db-conn [c]
+(defn db-conn
+  ([c]
+   (db-conn c :read))
+  ([c op]
   (let [lt-srv (System/getenv "CMP_LT_SRV")
         usr    nil #_(System/getenv "CAL_USR")
         pwd    nil #_(System/getenv "CAL_PWD")]
@@ -18,10 +21,13 @@
          (when (and usr pwd) (str usr ":" pwd "@"))
          (or lt-srv (:db-srv c)) ":"
          (:db-port c) "/"
-         (:db-db c))))
+         (condp = op
+           :read (:read-db c)
+           :write (:write-db c))))))
 
 (def config
-  (let [c (get-config)]
-    (assoc c
-           :db-conn (db-conn c)
-           :smtp-host-map {:host (:smtp-host c)})))
+    (let [c (get-config)]
+      (assoc c
+             :read-db-conn (db-conn c :read)
+             :write-db-conn (db-conn c :write)
+             :smtp-host-map {:host (:smtp-host c)})))

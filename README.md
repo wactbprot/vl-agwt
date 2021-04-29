@@ -13,6 +13,15 @@ URL=http://localhost:9099
 curl -H "$H" $URL/todo
 ```
 
+## convert a calibration request
+
+The `/convert` endpoint returns the planning document generated from
+the calibration request.
+
+```shell
+curl -H "$H" -d @resources/calibration-request.json -X POST $URL/convert
+```
+
 ## request a calibration
 
 Use the json file under `resources/calibration-request.json` and send the request:
@@ -21,13 +30,18 @@ Use the json file under `resources/calibration-request.json` and send the reques
 curl -H "$H" -d @resources/calibration-request.json -X POST $URL/request
 ```
 
-## request the dcc(s)
+which leads to the following steps:
 
+* input data (`inquiry` short `inq`) checks
+* convert `inq` to a planning document (short `pla`)
+* sends a notification email
+* stores the document (`pla`) in the vl database
+
+## request the dcc(s)
 
 ```shell
 curl -H "$H"  $URL/dcc/<RequestId>
 ```
-
 
 ## Installation
 

@@ -1,5 +1,5 @@
-(defproject vlagwt "0.5.6"
-  :description "A agwt to vl interface."
+(defproject vlagwt "0.6.0"
+  :description "A VacLab interface."
   :url "https://gitlab1.ptb.de/bock04/vlagwt"
   :license {:name "BSD 2-Clause"
             :url "https://gitlab1.ptb.de/bock04/vlagwt"}

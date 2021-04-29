@@ -21,19 +21,20 @@
 
 (defn todo [req] (u/db-req->key (db/todo :all)))
 
+(defn pla-doc [req]
+  (let [inq    (u/req->inq req)
+        todos  (db/todo :all)
+        result (i/check inq todos)]
+    (if (:ok result)
+      (i/pla-doc inq todos)
+      result))) 
+
 (defn save-pla-doc [req]
-  (let [inq  (u/req->inq req)
-        id   (i/inq->doc-id inq)
-        mail (i/inq->mail-body inq)
-        todo [] #_(u/db-req->key (db/todo :all))]
-    (cond
-      ;;(db/exist? id) {:error "Document already exist."}
-      (not (i/main-parts-ok? inq)) {:error "Missing, wrong or empty customer and/or device section"}
-      (not (i/id-ok? inq)) {:error "Malformed or missing RequestId"}
-      (not (i/date-ok? inq)) {:error "Wrong, malformed or missing Date section"}
-      (not (i/device-amount-ok? inq)) {:error "Wrong or missing Device Amount"}
-      (not (i/customer-mail-ok? inq)) {:error "Malformed or missing customer Email"}
-      (not (i/customer-sign-ok? inq)) {:error "Malformed customer Sign"}
-      (not (i/mail-ok? (i/send-mail! mail))) {:error "Failed notification Email"}
-      #_(not (db/saved? pla-doc))
-      :success {:ok true})))
+  (let [inq    (u/req->inq req)
+        todos  (db/todo :all)
+        result (i/check inq todos)]
+    (if (:ok result)
+      (if (i/mail-ok? (i/send-mail! (i/inq->mail-body inq)))
+        (db/saved? (db/put-doc (i/pla-doc inq todos)))
+        {:error "Failed notification Email"})
+      result)))

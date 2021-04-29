@@ -1,12 +1,15 @@
 {
  :smtp-host "smtp-hub.bs.ptb.de"
  :notif-mail ["thomas.bock@ptb.de"]
+ :post-reminder true
+ :pre-reminder true
  :server {:port 9099
           :join? false}
  ;; couchdb
  :db-srv "a73434"
  :db-port 5984
- :db-db "vl_db"
+ :read-db "vl_db"
+ :write-db "agwt"
  :db-prot "http"
  :db-req-design "vl-agwt"
  :db-req-view "RequestId"
