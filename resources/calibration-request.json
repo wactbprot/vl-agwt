@@ -39,18 +39,7 @@
 		"Type": null,
 		"ToDoName": "CDG von: 0.001mbar bis: 0.1mbar mit 15 Messpunkten",
 		"Amount": 1
-	    },
-	    {
-		"Type": null,
-		"ToDoName": "QBS von: 1Pa bis: 2000Pa mit 8 Messpunkten",
-		"Amount": 1
-	    },
-	    {
-		"Type": null,
-		"ToDoName": "SRG von: 1.3e-3Pa bis: 1.3Pa mit 19 Messpunkten",
-		"Amount": 1
 	    }
-	    
 	],
 	"Maintainer": "Samuel Eickelberg",
 	"RepeatMonth": 12,

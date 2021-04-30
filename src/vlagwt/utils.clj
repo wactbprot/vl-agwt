@@ -1,7 +1,9 @@
 (ns vlagwt.utils
   ^{:author "Thomas Bock <thomas.bock@ptb.de>"
     :doc "Utils."}
-  (:require [clojure.string :as string]))
+  (:require [clojure.string :as string])
+  (:import [java.time.format DateTimeFormatter]
+           [java.time LocalDateTime]))
 
 (defn req->inq [req] (get-in req [:body]))
 
@@ -25,3 +27,5 @@
 
 
 (defn unique-req-id [l] (group-by :key l))
+
+(defn today [] (str (.format (java.time.LocalDateTime/now) (DateTimeFormatter/ofPattern "yyyy-MM-dd"))))

@@ -16,7 +16,6 @@
             (-> (io/resource "calibration-request.json")
                 slurp) true))
   
-  
   (def conf c/config)
   (che/encode inq))
 
@@ -68,7 +67,13 @@
 (defn inq->comment [m] (not-empty (get-in (inq->main m) [:Comment])))
 
 (defn date-vec->desired-date [v] (:Value (first (filter #(= (keyword (:Type %)) :desired) v))))
-    
+
+(defn inq->desired-date [m] {:Type "desired" :Value (date-vec->desired-date (inq->date m))})
+
+(defn inq->ref-date [m] {:Type "CustomerRef" :Value (u/today)})
+
+(defn inq->schedule-date [m] {:Type "schedule" :Value (date-vec->desired-date (inq->date m)) :Duration 5})
+
 ;;----------------------------------------------------------
 ;; checks
 ;;----------------------------------------------------------
@@ -98,6 +103,7 @@
 
 (defn check
   [inq todos]
+  (prn inq)
   (cond
     (not (main-parts-ok?    inq))        {:error "Missing, wrong or empty customer and/or device section"}
     (not (id-ok?            inq))        {:error "Malformed or missing RequestId"}
@@ -162,7 +168,9 @@
   ([config inq todos]
    {:_id  (inq->pla-doc-id inq)
     :Planning {:RequestId (inq->req-id inq)
-               :Date (inq->date inq)
+               :Date [(inq->desired-date inq)     
+                      (inq->ref-date inq)
+                      (inq->schedule-date inq)]
                :Customer (inq->customer inq)
                :Device (inq->devices-with-todo inq todos)
                :Comment (inq->comment inq)

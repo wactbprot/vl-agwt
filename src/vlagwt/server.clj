@@ -17,10 +17,10 @@
 
 (defroutes app-routes
   (GET "/status/ui/:req-id"  [req-id :as req] (v/index  req (h/cal-req  req)))
-  (GET "/status/ui"          [req]            (v/index  req (h/all-req  req)))
+  (GET "/status/ui"          [:as req]            (v/index  req (h/all-req  req)))
   (GET "/status/raw/:req-id" [req-id :as req] (res/response (h/cal-req  req)))
   (GET "/dcc/:req-id"        [req-id :as req] (res/response (h/dcc req)))
-  (GET "/todo"               [req]            (res/response (h/todo req)))
+  (GET "/todo"               [:as req]        (res/response (h/todo req)))
   (POST "/request"           [:as req]        (res/response (h/save-pla-doc req)))
   (POST "/convert"           [:as req]        (res/response (h/pla-doc req)))
   (route/resources "/")
