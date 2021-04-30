@@ -8,10 +8,6 @@
             [vlagwt.utils :as u]))
 
 (comment
-  (def inq (-> (io/resource "calibration-request.edn")
-                   slurp
-                   edn/read-string))
-  
   (def inq (che/decode
             (-> (io/resource "calibration-request.json")
                 slurp) true))
@@ -54,8 +50,6 @@
 
 (defn inq->req-id [m] (get-in (inq->main m) [:RequestId]))
 
-(defn inq->date [m] (get-in (inq->main m) [:Date]))
-
 (defn inq->device [m] (get-in (inq->main m) [:Device]))
 
 (defn inq->devices [m] (get-in (inq->main m) [:Device]))
@@ -66,7 +60,12 @@
 
 (defn inq->comment [m] (not-empty (get-in (inq->main m) [:Comment])))
 
-(defn date-vec->desired-date [v] (:Value (first (filter #(= (keyword (:Type %)) :desired) v))))
+;;----------------------------------------------------------
+;; path date
+;;----------------------------------------------------------
+(defn inq->date [m] (get-in (inq->main m) [:Date]))
+
+(defn date-vec->desired-date [v] (:Value (first (filter #(=  (:Type %) "desired") v))))
 
 (defn inq->desired-date [m] {:Type "desired" :Value (date-vec->desired-date (inq->date m))})
 
@@ -103,7 +102,6 @@
 
 (defn check
   [inq todos]
-  (prn inq)
   (cond
     (not (main-parts-ok?    inq))        {:error "Missing, wrong or empty customer and/or device section"}
     (not (id-ok?            inq))        {:error "Malformed or missing RequestId"}
@@ -117,27 +115,31 @@
 ;;----------------------------------------------------------
 ;; notification mail
 ;;----------------------------------------------------------
+(defn inq->notif-link [config m] (str (:write-db-conn config) "/" (inq->pla-doc-id m)))
+
+(defn mail-ok? [m] (zero? (:code m)))
+
 (defn inq->mail-body
   ([inq]
    (inq->mail-body c/config inq)) 
-  ([config m]
+  ([{nm :notif-mail fm :from-mail :as config} m]
    (let [name    (inq->customer-name m)
          comment (inq->comment m)]
-     {:from    "vl-proxy@berlin.ptb.de" ;; -> conf
-      :to      (:notif-mail config)
+     {:from    fm
+      :to      nm
       :subject (str "Kalibrieranfrage AGWT " name)
       :body    (str "Eine Anfrage für eine Kalibrierung des Kunden:\n   "
                     name "\nhat uns über die AnGeWaNt Schnittstelle erreicht."
                     (when comment
-                      (str " Die Anfrage wurde mit folgendem Kommentar versehen:\n   " comment)))})))
+                      (str " Die Anfrage wurde mit folgendem Kommentar versehen:\n   " comment "\n"))
+                    "Unter\n   " (inq->notif-link config m)
+                    "\nwird ein entsprechendes Planungsdokument angelegt." )})))
 
 (defn send-mail!
   ([body]
    (send-mail! c/config body))
   ([{host :smtp-host-map} body]
    (m/send-message host body)))
-
-  (defn mail-ok? [m] (zero? (:code m)))
 
 ;;----------------------------------------------------------
 ;; build planning doc
@@ -149,18 +151,14 @@
 
 (defn todo-by-name [s v] (:ToDo (:value (first (filter #(= s (:key %)) v)))))
 
-(defn device-todo [t n]
-  {:ToDo t
-   :Type (:DeviceClass t)
-   :Amount n})
+(defn device-todo [t n] {:ToDo t :Type (:DeviceClass t) :Amount n})
 
 (defn inq->devices-with-todo
   ([inq todos]
    (inq->devices-with-todo c/config inq todos))
   ([config inq todos]
    (mapv  #(device-todo (todo-by-name %1 todos) %2)
-          (inq->todo-names inq)
-          (inq->amounts inq))))
+          (inq->todo-names inq) (inq->amounts inq))))
 
 (defn pla-doc
   ([inq todos]
@@ -168,9 +166,7 @@
   ([config inq todos]
    {:_id  (inq->pla-doc-id inq)
     :Planning {:RequestId (inq->req-id inq)
-               :Date [(inq->desired-date inq)     
-                      (inq->ref-date inq)
-                      (inq->schedule-date inq)]
+               :Date [(inq->desired-date inq) (inq->ref-date inq) (inq->schedule-date inq)]
                :Customer (inq->customer inq)
                :Device (inq->devices-with-todo inq todos)
                :Comment (inq->comment inq)

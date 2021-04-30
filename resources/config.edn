@@ -1,6 +1,7 @@
 {
  :smtp-host "smtp-hub.bs.ptb.de"
  :notif-mail ["thomas.bock@ptb.de"]
+ :from-mail "vl-proxy@berlin.ptb.de"
  :post-reminder true
  :pre-reminder true
  :server {:port 9099
