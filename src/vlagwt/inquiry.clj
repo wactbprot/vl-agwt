@@ -113,35 +113,6 @@
     :success {:ok true}))
 
 ;;----------------------------------------------------------
-;; notification mail
-;;----------------------------------------------------------
-(defn inq->notif-link [config m] (str (:write-db-conn config) "/" (inq->pla-doc-id m)))
-
-(defn mail-ok? [m] (zero? (:code m)))
-
-(defn inq->mail-body
-  ([inq]
-   (inq->mail-body c/config inq)) 
-  ([{nm :notif-mail fm :from-mail :as config} m]
-   (let [name    (inq->customer-name m)
-         comment (inq->comment m)]
-     {:from    fm
-      :to      nm
-      :subject (str "Kalibrieranfrage AGWT " name)
-      :body    (str "Eine Anfrage für eine Kalibrierung des Kunden:\n   "
-                    name "\nhat uns über die AnGeWaNt Schnittstelle erreicht."
-                    (when comment
-                      (str " Die Anfrage wurde mit folgendem Kommentar versehen:\n   " comment "\n"))
-                    "Unter\n   " (inq->notif-link config m)
-                    "\nwird ein entsprechendes Planungsdokument angelegt." )})))
-
-(defn send-mail!
-  ([body]
-   (send-mail! c/config body))
-  ([{host :smtp-host-map} body]
-   (m/send-message host body)))
-
-;;----------------------------------------------------------
 ;; build planning doc
 ;;----------------------------------------------------------
 (defn inq->pla-doc-id [m]
@@ -172,3 +143,34 @@
                :Comment (inq->comment inq)
                :PostReminder true
                :PreReminder true}}))
+
+;;----------------------------------------------------------
+;; notification mail
+;;---------------------------------------------------------- 
+(defn mail-ok? [m] (zero? (:code m)))
+
+(defn inq->notif-link [config m] (str (:write-db-conn config) "/" (inq->pla-doc-id m)))
+
+(defn inq->mail-body
+  ([inq]
+   (inq->mail-body c/config inq)) 
+  ([{nm :notif-mail fm :from-mail :as config} m]
+   (let [name    (inq->customer-name m)
+         comment (inq->comment m)]
+     {:from    fm
+      :to      nm
+      :subject (str "Kalibrieranfrage AGWT " name)
+      :body    (str "Eine Anfrage für eine Kalibrierung des Kunden:\n   "
+                    name "\nhat uns über die AnGeWaNt Schnittstelle erreicht."
+                    (when comment
+                      (str " Die Anfrage wurde mit folgendem Kommentar versehen:\n   "
+                           comment "\n"))
+                    "Unter\n   " (inq->notif-link config m)
+                    "\nwird ein entsprechendes Planungsdokument angelegt." )})))
+
+(defn send-mail!
+  ([body]
+   (send-mail! c/config body))
+  ([{host :smtp-host-map} body]
+   (m/send-message host body)))
+
