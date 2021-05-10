@@ -18,4 +18,8 @@
  :db-dcc-view "DCC"
  :db-todo-design "vl-agwt"
  :db-todo-view "ToDo"
+;;  :status-url  "http://a85240.berlin.ptb.de/dcc-service/api/v1/dcc/kalibrierauftrag/{id}/status"
+;; http://a85240.berlin.ptb.de/dcc-service/api/v1/dcc/kalibrierauftrag/19d4739ea67b11eba3740dde2cb43210/status
  }
+
+19d4739ea67b11eba3740dde2cb43210

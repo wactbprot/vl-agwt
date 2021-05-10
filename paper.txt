@@ -1,0 +1,60 @@
+vacLab
+
+- Vacuum metrology group was founded in 1966 [cite: The vacuum metrology system in Germany, Jousten, 04]
+
+- concerned with the realisation and dissemination of gas flows in the range from $1\times10^{-8}\,Pa~l/s$
+   to $1\times10^{-2}Pa l/s$
+- the pressure scale reaches from $1\times10^{-9}\,Pa$ to $1\,kPa$
+- Customers from (?) countries (Tortendiagramm?)
+- Worldwide Metrology Cooperation with metrology institutes
+- regular international comparisons
+- 40(?) % of the worldwide used gauges are tracable to the standards operated by the vacuum group
+- About  170 certificates are issued per year since 2020 DCC for most calibrations are offered
+
+- The pressure scale is realized with 6 primary standards
+- automation efforts since the 90s [cite: CE3 paper, Jousten, 99]
+- the vacuum metrology group values the use of open source software
+- beim  zuletzt fertig gestellten Normal wurde Digitalisierung und automatiscierung der Abläufe von vorn hereich eingelant.
+- Digitization and automation was a design goal for the most recently completed primary standard SE3.
+- The automation of all processes was included from the beginning.
+- In section 2, a complete workflow is presented based on SE3.
+
+
+workflow
+
+- The central element of the vl infrastructure is the database
+- The NoSQL data base CouchDB (link, janl twitter) is used
+-- database belongs to the category of document stores
+-- written in Erlang 
+-- Replikation, Redundanz
+-- Abfragesprache ist javascript
+-- Dokumente im JSON format
+
+- Bsp. von Vaclab Dokumente:
+-- Server ... Replikation
+-- Kalibrierziele ... Zieldrücke
+-- Ablaufdefinitionen: DSL im JSON Format, sequentiell, parallel
+-- Calibration ... stand alone Dokumente mit Datumsangaben SN, Konstanten, Rohdaten, Auswertung
+-- dcc ... Json mit struktur analog xml dcc
+
+- workflow
+-- CalibrationRequest Planung der Kalib. Terminvergabe welche greäte wieviele --> offer.pdf
+-- Bestätigung --> confirmation.pdf
+-- planning document is converted to bur. doc and a calibration document for each of the devices requested for calibration
+-- the gauges arrive, they are attached to SE3
+-- after pump down, a mpd is executed by which outgasing, add vol. leak test and checks for T-sensors and pressure devices
+-- calibration process is also defined as an mpd
+-- um einen Messpunkt zu erzeugen werden ca. 400 Teilschritte abgearbeitet
+-- ca. 15 Messpunkte für eine Kalib.
+-- Abhängig vom Druckbereich verschiedene Kalibrierverfahren: expansion, direkt, Druckwaage
+-- Vorauswertung für jeden kompletten Messpunkt
+-- detailierte Analyse wenn komplett
+-- Offsetstreuung, Parameter wie E_vis, T-Korrekturen
+-- 2. Analyse/Crosscheck der Daten
+-- Nachmessungen wenn nötig
+-- falls nicht:  Erzeugung eines certificate dokument: aus den Einzelmessungen und  Kombination der Kalibrierdokumente der Einzelnenverfahren
+-- Analog Erzeugung dcc im Json Format.
+-- beide durch Kombination von Jinja Templates
+-- aus cer wird Latex und aus latex pdf
+-- aus dcc wird xml
+
