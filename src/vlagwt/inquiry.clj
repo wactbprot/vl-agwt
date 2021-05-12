@@ -19,15 +19,6 @@
 ;;----------------------------------------------------------
 ;; fixes
 ;;----------------------------------------------------------
-(defn fix-gender [customer]
-  (let [p [:Contact :Gender]
-        g (keyword (get-in customer p))]
-    (assoc-in customer p
-              (condp = g
-                :m "male"
-                :f "female"
-                "other"))))
-
 (defn fix-invoice [m] (if-not (:Invoice m) (assoc m :Invoice {}) m))
 
 (defn fix-shipping [m] (if-not (:Shipping m) (assoc m :Shipping  {}) m))
@@ -38,7 +29,6 @@
 (defn inq->main [m] (:CalibrationRequest m))
 
 (defn inq->customer [m] (-> (get-in (inq->main m) [:Customer])
-                            fix-gender
                             fix-invoice
                             fix-shipping))
 

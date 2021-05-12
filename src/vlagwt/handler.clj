@@ -23,7 +23,6 @@
 
 (defn pla-doc [req]
   (let [inq    (u/req->inq req)
-        _ (prn req)
         todos  (db/todo :all)
         result (i/check inq todos)]
     (if (:ok result)
