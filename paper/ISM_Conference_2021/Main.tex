@@ -1,0 +1,509 @@
+% Template for Elsevier CRC journal article
+% version 1.2 dated 09 May 2011
+
+% This file (c) 2009-2011 Elsevier Ltd.  Modifications may be freely made,
+% provided the edited file is saved under a different name
+
+% This file contains modifications for Procedia Computer Science
+
+% Changes since version 1.1
+% - added "procedia" option compliant with ecrc.sty version 1.2a
+%   (makes the layout approximately the same as the Word CRC template)
+% - added example for generating copyright line in abstract
+
+%-----------------------------------------------------------------------------------
+
+%% This template uses the elsarticle.cls document class and the extension package ecrc.sty
+%% For full documentation on usage of elsarticle.cls, consult the documentation "elsdoc.pdf"
+%% Further resources available at http://www.elsevier.com/latex
+
+%-----------------------------------------------------------------------------------
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                                          %%
+%% Important note on usage                                  %%
+%% -----------------------                                  %%
+%% This file should normally be compiled with PDFLaTeX      %%
+%% Using standard LaTeX should work but may produce clashes %%
+%%                                                          %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% The '3p' and 'times' class options of elsarticle are used for Elsevier CRC
+%% The 'procedia' option causes ecrc to approximate to the Word template
+\documentclass[3p,times,procedia]{elsarticle}
+\flushbottom
+
+%% The `ecrc' package must be called to make the CRC functionality available
+\usepackage{ecrc}
+\usepackage[bookmarks=false]{hyperref}
+    \hypersetup{colorlinks,
+      linkcolor=blue,
+      citecolor=blue,
+      urlcolor=blue}
+%\usepackage{amsmath}
+
+
+%% The ecrc package defines commands needed for running heads and logos.
+%% For running heads, you can set the journal name, the volume, the starting page and the authors
+
+%% set the volume if you know. Otherwise `00'
+\volume{00}
+
+%% set the starting page if not 1
+\firstpage{1}
+
+%% Give the name of the journal
+\journalname{Procedia Computer Science}
+
+%% Give the author list to appear in the running head
+%% Example \runauth{C.V. Radhakrishnan et al.}
+\runauth{Oppermann et al.}
+
+%% The choice of journal logo is determined by the \jid and \jnltitlelogo commands.
+%% A user-supplied logo with the name <\jid>logo.pdf will be inserted if present.
+%% e.g. if \jid{yspmi} the system will look for a file yspmilogo.pdf
+%% Otherwise the content of \jnltitlelogo will be set between horizontal lines as a default logo
+
+%% Give the abbreviation of the Journal.
+\jid{pictures/Procs}
+
+%% Give a short journal name for the dummy logo (if needed)
+%\jnltitlelogo{Computer Science}
+
+%% Hereafter the template follows `elsarticle'.
+%% For more details see the existing template files elsarticle-template-harv.tex and elsarticle-template-num.tex.
+
+%% Elsevier CRC generally uses a numbered reference style
+%% For this, the conventions of elsarticle-template-num.tex should be followed (included below)
+%% If using BibTeX, use the style file elsarticle-num.bst
+
+%% End of ecrc-specific commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% The amssymb package provides various useful mathematical symbols
+
+\usepackage{amssymb}
+%% The amsthm package provides extended theorem environments
+%% \usepackage{amsthm}
+
+%% The lineno packages adds line numbers. Start line numbering with
+%% \begin{linenumbers}, end it with \end{linenumbers}. Or switch it on
+%% for the whole article with \linenumbers after \end{frontmatter}.
+%% \usepackage{lineno}
+
+%% natbib.sty is loaded by default. However, natbib options can be
+%% provided with \biboptions{...} command. Following options are
+%% valid:
+
+%%   round  -  round parentheses are used (default)
+%%   square -  square brackets are used   [option]
+%%   curly  -  curly braces are used      {option}
+%%   angle  -  angle brackets are used    <option>
+%%   semicolon  -  multiple citations separated by semi-colon
+%%   colon  - same as semicolon, an earlier confusion
+%%   comma  -  separated by comma
+%%   numbers-  selects numerical citations
+%%   super  -  numerical citations as superscripts
+%%   sort   -  sorts multiple citations according to order in ref. list
+%%   sort&compress   -  like sort, but also compresses numerical citations
+%%   compress - compresses without sorting
+%%
+%% \biboptions{authoryear}
+
+% \biboptions{}
+
+% if you have landscape tables
+\usepackage[figuresright]{rotating}
+%\usepackage{harvard}
+% put your own definitions here:x
+%   \newcommand{\cZ}{\cal{Z}}
+%   \newtheorem{def}{Definition}[section]
+%   ...
+
+% add words to TeX's hyphenation exception list
+%\hyphenation{author another created financial paper re-commend-ed Post-Script}
+
+% declarations for front matter
+
+
+\begin{document}
+\begin{frontmatter}
+
+%% Title, authors and addresses
+
+%% use the tnoteref command within \title for footnotes;
+%% use the tnotetext command for the associated footnote;
+%% use the fnref command within \author or \address for footnotes;
+%% use the fntext command for the associated footnote;
+%% use the corref command within \author for corresponding author footnotes;
+%% use the cortext command for the associated footnote;
+%% use the ead command for the email address,
+%% and the form \ead[url] for the home page:
+%%
+%% \title{Title\tnoteref{label1}}
+%% \tnotetext[label1]{}
+%% \author{Name\corref{cor1}\fnref{label2}}
+%% \ead{email address}
+%% \ead[url]{home page}
+%% \fntext[label2]{}
+%% \cortext[cor1]{}
+%% \address{Address\fnref{label3}}
+%% \fntext[label3]{}
+
+\dochead{International Conference on Industry 4.0 and Smart Manufacturing}%%%
+%% Use \dochead if there is an article header, e.g. \dochead{Short communication}
+%% \dochead can also be used to include a conference title, if directed by the editors
+%% e.g. \dochead{17th International Conference on Dynamical Processes in Excited States of Solids}
+
+\title{Digital Transformation in Legal Metrology: \\ Building and integrating external digital workflows}
+
+%% use optional labels to link authors explicitly to addresses:
+%% \author[label1,label2]{<author name>}
+%% \address[label1]{<address>}
+%% \address[label2]{<address>}
+
+
+
+\author[a]{Alexander Oppermann\corref{cor1}} 
+\author[a]{Samuel Eickelberg}
+\author[a]{Thomas Bock}
+\author[a]{John Exner}
+\author[b]{Wiebke Heeren}
+\author[b]{Oksana Baer}
+\author[b]{Clifford Brown}
+
+\address[a]{Physikalisch-Technische Bundesanstalt (PTB), Abbestr. 2-12, 10587 Berlin, Germany}
+\address[b]{Physikalisch-Technische Bundesanstalt (PTB), Bundesallee 100, 38116 Braunschweig, Germany}
+
+\begin{abstract}
+%% Text of abstract
+Insert here your abstract text.
+\end{abstract}
+
+\begin{keyword}
+Digital transformation \sep Metrological processes \sep Administrative shell \sep Digital Calibration Certificate \sep DCC \sep Declaration of Conformity \sep DOC \sep Distributed software architecture  \sep Weighing instruments \sep Legal Metrology \sep 
+
+%% keywords here, in the form: keyword \sep keyword
+
+%% PACS codes here, in the form: \PACS code \sep code
+
+%% MSC codes here, in the form: \MSC code \sep code
+%% or \MSC[2008] code \sep code (2000 is the default)
+
+\end{keyword}
+\cortext[cor1]{Corresponding author. Tel.: +49-30-3481-7483}
+\end{frontmatter}
+
+%\correspondingauthor[*]{Corresponding author. Tel.: +0-000-000-0000 ; fax: +0-000-000-0000.}
+\email{alexander.oppermann@ptb.de}
+
+%%
+%% Start line numbering here if you want
+%%
+% \linenumbers
+
+%% main text
+
+%\enlargethispage{-7mm}
+\section{Introduction}
+\label{introduction}
+
+
+\subsection{ Angewant}
+``Angewant'' is a joint research project of six representatives from the weighing industry, the construction industry and science. The latter is divided into the National Metrology Institute PTB (Physikalisch-Technische Bundesanstalt), a regional agency for innovation and European affairs as well as the Institute for applied labor science (IfaA), responsible for socio-economics and human factors \cite{Ottersboeck2020System}.
+
+%TODO Alex
+- Angewant Project
+\begin{itemize}
+    \item short introduction to Legal Metrology
+    \item Key Objectives 3-5 \cite{Eichstaett2020Metrologie}
+    \item Distributed Software Architecture
+    \item Service Hub
+    \item Stakeholder: Manufacturer, User, Verification Authorities
+\end{itemize}
+
+    
+
+
+\begin{nomenclature}
+\begin{deflist}[A]
+\defitem{PTB} \defterm{Physikalisch-Technische Bundesanstalt}
+\defitem{DCC} \defterm{Digital Calibration Certificate}
+\defitem{DOC} \defterm{Declaration of Conformity}
+\end{deflist}
+\end{nomenclature}
+
+
+
+
+\subsection{SmartCom}
+\begin{itemize}
+    \item Project Background: goal, other partners
+    \item Purpose of AP5
+    \item Use Cases
+\end{itemize}
+
+Within the framework of the EMPIR project “Communication and validation of smart data in IoT-networks” SmartCom \cite{SmartCom}, see Fig. \ref{fig:SmartCom_logo}, the metrological and technical baseline for the exchange of metrological data has been established, in the form of the Digital System of Units (D-SI) and the framework conditions for DCCs. In order to validate the quality of data being exchanged, a novel test module for D-SI based data has been developed and integrated into the existing and well-established online validation system TraCIM [cite?] (Traceability for computational-intensive metrology, a service run at PTB). The project partners consortium consists of universities, metrology and research institutes as well as companies from weighting industry acting in EU. 
+
+\begin{figure}
+    \centering
+    \includegraphics[angle=0, width=0.4\columnwidth]{pictures/Atlas_Smartcom.pdf}
+    \caption{SmartCom project aims in developing the basis for an unambiguous, universal, safe and uniform communication of metrological data in IoT. }
+    \label{fig:SmartCom_logo}
+\end{figure}
+
+Aim of workpackage 5 of SmartCom project is to develop a reliable, easy to use, validated and secure online conformity assessment procedure designed for cloud system applications for legal metrology. In this section of work, requirements for a user‐oriented and easy‐to‐establish online conformity assessment system that fulfils the general needs of legal preconditions was developed. The research focused on industrial users who develop sophisticated networks within digital networks and whose previous developments could not be taken to market due to national law restrictions.
+
+\subsection{Vacuum metrology group}
+
+%\begin{itemize}
+%    \item Background: goal, other partners
+%    \item Purpose of Calibrations
+%    \item Use Cases
+%\end{itemize}
+
+The PTB vacuum metrology group was founded in 1966 at the institute
+Berlin \cite{jou19, jou04}. In addition to research and development,
+the calibration of vacuum gauges falls within the laboratory's
+responsibilities. To this objective, the members of the group ensures
+the realization and dissemination of the pressure scale from
+$1\times10^{-9}\,Pa$ to $1\,kPa$. To cover this pressure range,
+different methodes based on different physical equations are used and
+realized at different facilities.  Such systems are called standards
+or primary standards. This standards are used for research but also
+for calibrations. Calibration customers are from industry and economy,
+from DAkks and also other metrology institutes. At a glace, a
+calibration process runs as follows: Customers sent gauges which are
+installed at the standards. The reading of this gauges are compared to
+the pressure realized by the standards called the calibration
+pressure. This comparison results in a calibration certificate stating
+the deviation between reading and calibration pressure and the
+associated uncertainties. The metrology group issues about 170
+calibration certificates per year.
+
+
+\begin{itemize}
+\item since 2020 DCC offered in addition to the official printed calibration certificate
+\item the pressure scale is realized with 6 primary standards
+\item problem: increasing amount of calibrations decreasing amount of
+  group members|stuff
+\item automation efforts since the 90s \cite{jouce3, joufm3} 
+\item the vacuum metrology group values the use of open source
+  software
+\item Digitization and automation was also a design goal for the most
+  recently completed primary standard SE3.  The automation of all
+  (...what all) processes was thought along from the beginning
+\item in section \ref{ssec:vl-work} a complete workflow is presented based on SE3
+\end{itemize}
+
+% Allgemeine Erklärung Vaclab
+    % Was ist VacLab, Warum, sehr kurz präzise
+    % Hinleitung zum DCC und den Use Case erklären
+    % Von allgemein (Kalibrierung) zu speziell (DCC)
+    % Notwendigkeit der Digitalisierung
+    
+
+%\enlargethispage{12pt}
+
+\section{Materials \& Methods}
+
+\subsection{Digital Calibration Certificate}
+    %Erklärung was ist das und wieso macht man das?
+    % Austauschformat von informationen 
+    % The DCC provides a unified way of transferring calibration data.
+    
+\textbf{OB: is it a subsection for SmartCom team?}
+
+\subsection{IT at Vacuum metrology group}
+
+\begin{itemize}
+\item The central element of the VacLab infrastructure is the database
+\item Why CouchDB?
+  \begin{itemize}
+  \item problem: many and changing requirements:
+  \item we are customers of our own: calibration of our measurement
+    devices gives a different context as using them
+    for the calibration of customer gauges 
+  \item changing calibration constants
+  \item long-term history of these objects is a important metrological parameter
+  \item evolving connection protocols with different
+    types of parameter sets 
+  \item attempt to model the problems above with a relational approach
+    was abandoned in favor of a schema-free solution
+\end{itemize}
+\item CouchDB
+  \begin{itemize}
+  \item The NoSQL database CouchDB \cite{couch} is used
+  \item database belongs to the category of document stores
+  \item Multi-Version Concurrency Control (MVCC) and an append-only design
+  \item written in Erlang (telcos, distributed systems)
+  \item master-master replication leads to redundancy 
+  \item network partitions are no problem since no single point of failure
+  \item query language is js
+  \item the documents are stored in JSON format: Java Script Object
+    Notation which is a subset of js so no impedance mismatch
+  \item communication via http: on board in most programming language
+  \end{itemize}
+  
+\item Examples of documents in the Vacuum metrology group database: 
+  \begin{itemize}
+  \item server document ... used to automate the replication 
+  \item todo documents (\emph{tdo} in  Figure~\ref{fig:vl-work}) ...
+    describe the aim of the calibration, the
+    outcome: target pressures, target temperatures, kind of analysis,
+    number of repeat measurements
+  \item measurement operation definitions... a domain specific
+    language (dsl) describing the steps of a calibration or measurement:
+    core idea is: everything can be ordered in sequential and
+    parallel steps
+  \item calibration documents (\emph{cal} in  Figure~\ref{fig:vl-work})... 
+    stand alone descriptions combination
+    of: dates presettings; calibration objects with parameters serial
+    numbers; nature constants and conversion factors; as well as
+    the raw data and the analysis of the calibration of one device and
+    one specific calibration method 
+    \item DCC document ... JSON document with a structure analog to the DCC xml structure
+  \end{itemize}
+\end{itemize}
+
+\subsection{Vacuum metrology group workflow}
+\label{ssec:vl-work}
+
+\begin{figure}
+    \centering
+    \includegraphics[angle=0, width=0.4\columnwidth]{pictures/vaclab_workflow.pdf}
+    \caption{Workflow of vacuum metrology group. }
+    \label{fig:vl-work}
+\end{figure}
+
+Workflow along the working steps at SE3
+\begin{itemize}
+  
+\item starts with CalibrationRequest by e-mail or via REST interface:
+  planning of the calibration: Who, where, when, how many devices
+  planning document (\emph{pla} in  Figure~\ref{fig:vl-work}) gives offer.pdf
+\item Customer gives confirmation leading to generation of confirmation.pdf, declaration.pdf
+\item planning document is converted to bureaucracy document (\emph{bur} in  Figure~\ref{fig:vl-work}) and a
+  calibration document for each of the devices requested for
+  calibration
+\item the gauges arrive, measurement maintainer (name is stored in
+  calibration document) checks serial numbers and settings
+\item calibration document is supplemented by the calibration objects 
+    (\emph{cob1}, \emph{cob2} ...  in  Figure~\ref{fig:vl-work}) document
+\item gauges are attached to SE3 (up to ten gauges in one calibration
+  run)
+\item after pump down, a specific measurement operation definition is
+  executed: outgassing, add volume, leak test, checks for T-sensors and
+  pressure devices are tested and measured
+\item calibration processes are also defined as an measurement
+  operation definition document
+\item for one target point about 400 steps are executed
+\item about 15 target points for a usual calibration
+\item several calibration methods depending on the pressure range e.g.
+\item - continuous expansion method [\cite{} ]
+\item - static expansion method [\cite{} ] expansion
+\item - direct comparison
+\item - use of pressure balances
+\item again: one calibration document for each of the methods
+\item automated preliminary analysis for every completed target
+  pressure
+\item detailed analysis if all target pressures are measured
+\item calculation of additional parameters like offset scatter,
+  viscosity parameters, temperature corrections
+  
+\item repeat the measurement of suspicious target points
+\item generation of certificate document (\emph{cert} in  Figure~\ref{fig:vl-work}): 
+    combination of all calibration documents for a certain device
+\item certificate document used to generate LaTeX source and a pdf
+  version of the calibration certificate
+\item second analysis whereby the cert is the data source: a second
+  program crosschecks the measured and calculated data
+\item generation of JSON DCC (\emph{dcc} in  Figure~\ref{fig:vl-work}) 
+    document used to generate the DCC in xml
+  format 
+\item validation of DCC via REST interface
+\item Status update !!
+\item shipping the device back to the customer: bureaucracy
+  document gives shipping-label.pdf, shipping-order.pdf
+\end{itemize}
+
+
+\subsection{Declaration of Conformity}
+
+\begin{itemize}
+    \item Use Case
+    \item XML Schema (take info from D6)
+    \item Workflow: Upload, Download, Creation
+    \item Implentation independent service integration
+\end{itemize}
+
+\subsubsection{Workflow: Upload, Download, Creation}
+The online conformity assessment system consists of the following parts:
+\begin{itemize}
+    
+\item A unified user interface; a browser application for viewing documents, applying and validating the electronic signature.
+\item A security concept for the transmission of metrological information outside the restricted and economic environment [9], [10], using Representational State Transfer (REST), a well-established architectural style using the HTTP protocol.
+\item An XML‐based validation schema [14], including frameworks of the EU DoC. The exchange of documents will be enabled by an online storage system. 
+Similar to the procedure described in section V, the client uploads an XML file with the device information, such as type, manufacturer etc. As the next step the XML file is secured, by application of a digital signature [24]. The signed XML file is then uploaded to a OOS for the verification. The verification is based on EU DoC requirements. As a test output, the client receives a success or failure statement and a human readable version of the XML file. The entire workflow of the verification process was realised on the platform developed within the AnGeWaNt project [25].
+\end{itemize}
+
+\subsection{Platform Architecture}
+%TODO Samuel
+\begin{itemize}
+    \item API / Interfaces 
+    \item Service Architecture 
+    \item Statusmeldung
+\end{itemize}
+
+
+\section{Results}
+Implementation Results
+
+\subsection{VacLab}
+%Austausch mit Angewant
+% Welche Anpassungen waren notwendig
+% Hamronisierte REST Schnittstellen vorteilhaft
+
+\subsection{Angewant}
+\begin{itemize}
+    \item digital certificates and declaration % TODO: Harmonized XML definition, es ist validierbar (Samuel)
+    \item trigger service from unified interfaces % TODO: Hintergrundabfrage der Zertifikate und Statusupdates an Angewant per PUT (Samuel)
+    \item lesson learned % Verbindliche Absprachen, stabile Versionen (2 Systeme in dynamischer Entwicklung schwer abzustimmen)
+    \item Integrity % TODO andeuten und in Future Work mehr ausführen. Ist im Archive-Service schon da, wird aber noch nicht genutzt. (Samuel)
+\end{itemize}
+
+% TODO: Ablaufdiagramm DCC-Service - GUI -> Service -> VacLab -> Antwort (Samuel)
+% TODO: Beschreibung auf Basis des Dagramms (Samuel) mit unified Standards and Interfaces, implementation independent etc.
+
+\section{Conclusion and Future Work}
+\begin{itemize}
+    \item Summarize Results and give an outlook to the future 
+    \item Validation \& Integrity as a Service (VaaS)
+\end{itemize}
+
+\section*{Acknowledgements}
+
+The presented results are part of the project "AnGeWaNt - Arbeit an geeichten Waagen für hybride Wiegeleistungen an Nutzfahrzeugen" (FKZ: 02L17B050). We would like to thank the German Federal Ministry of Education and Research (BMBF) and the European Social Fund (ESF) for funding this research project. Both projects are implemented by the Project Management Agency Karlsruhe (PTKA). The authors are responsible for the content of this publication.
+
+%% The Appendices part is started with the command \appendix;
+%% appendix sections are then done as normal sections
+%% \appendix
+
+%% \section{}
+%% \label{}
+
+\appendix
+\section{An example appendix}
+Authors including an appendix section should do so before References section. Multiple appendices should all have headings in the style used above. They will automatically be ordered A, B, C etc.
+
+
+
+\bibliographystyle{elsarticle-harv}
+\bibliography{references}
+ 
+\end{document}
+
+%%
+%% End of file `procs-template.tex'.
