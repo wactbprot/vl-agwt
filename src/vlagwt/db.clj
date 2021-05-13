@@ -32,7 +32,7 @@
      (couch/get-view conn d v)
      (couch/get-view conn d v {:key id}))))
 
-(defn saved? [m] m)
+(defn saved? [m] (contains? m :_rev))
 
 ;;------------------------------
 ;; get doc

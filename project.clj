@@ -1,4 +1,4 @@
-(defproject vlagwt "0.7.0"
+(defproject vlagwt "0.8.0"
   :description "A VacLab interface."
   :url "https://gitlab1.ptb.de/bock04/vlagwt"
   :license {:name "BSD 2-Clause"
@@ -16,8 +16,8 @@
                  [com.draines/postal "2.0.4"]]
   :resource-paths ["resources"]
   :java-source-paths []
-  :plugins [[lein-codox  "0.10.7"]
-            [lein-cloverage  "1.1.2"]
+  :plugins [[lein-codox "0.10.7"]
+            [lein-cloverage "1.1.2"]
             [lein-kibit "0.1.8"]]
   :repl-options {:init-ns vlagwt.server}
   :main vlagwt.server

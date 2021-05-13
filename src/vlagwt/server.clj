@@ -1,6 +1,6 @@
 (ns vlagwt.server
   ^{:author "Thomas Bock <thomas.bock@ptb.de>"
-    :doc "Server start stop. Routing."}
+    :doc "Server start & stop. Routing."}
   (:require [compojure.route :as route]
             [compojure.core :refer :all]
             [compojure.handler :as handler]
@@ -16,20 +16,21 @@
 (defonce server (atom nil))
 
 (defroutes app-routes
-  (GET "/status/ui/:req-id"  [req-id :as req] (v/index  req (h/cal-req  req)))
-  (GET "/status/ui"          [:as req]            (v/index  req (h/all-req  req)))
-  (GET "/status/raw/:req-id" [req-id :as req] (res/response (h/cal-req  req)))
-  (GET "/dcc/:req-id"        [req-id :as req] (res/response (h/dcc req)))
-  (GET "/todo"               [:as req]        (res/response (h/todo req)))
-  (POST "/request"           [:as req]        (res/response (h/save-pla-doc req)))
-  (POST "/convert"           [:as req]        (res/response (h/pla-doc req)))
+  (GET "/status/ui/:req-id"  [req-id :as req] (v/index   req (h/raw-cal-req  req)))
+  (GET "/status/ui"          [:as req]        (v/index   req (h/all-req  req)))
+  
+  (GET "/status/raw/:req-id" [req-id :as req] (h/cal-req req))
+  (GET "/dcc/:req-id"        [req-id :as req] (h/dcc     req))
+  (GET "/todo"               [:as req]        (h/todo    req))
+  (POST "/request"           [:as req]        (h/save-pla-doc req))
+  (POST "/convert"           [:as req]        (h/pla-doc req))
   (route/resources "/")
-  (route/not-found (res/response {:error "not found"})))
+  (route/not-found  (h/not-found)))
 
 (def app
   (-> (handler/site app-routes)
       (middleware/wrap-json-body {:keywords? true})
-      middleware/wrap-json-response))
+       middleware/wrap-json-response))
 
 (defn stop [] (when @server (@server :timeout 100)))
 
