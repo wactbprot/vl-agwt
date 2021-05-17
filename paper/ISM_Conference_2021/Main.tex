@@ -258,51 +258,55 @@ Aim of workpackage 5 of SmartCom project is to develop a reliable, easy to use, 
 
 \subsection{Vacuum metrology group}
 
+The vacuum metrology group of PTB was founded in 1966 at the institute
+Berlin \cite{jou19, jou04}. In addition to research and development,
+the calibration of vacuum gauges falls within the laboratory's
+responsibilities. To this objective, the group maintains the
+realization and dissemination of the pressure scale from
+$1\times10^{-9}\,$Pa to $1\,$kPa is. To cover this pressure
+range, methods based on different physical laws are
+realized by primary standards. These standards are used for research
+but also for the calibration of vacuum gauges for customers. The customers
+of the metrology group at PTB range from industry, calibration laboratories
+to other metrology institutes.
+
+At a glace, a calibration process runs as follows: Customers sent
+their vacuum gauges which are installed at a primary standard. The
+readings of these gauges are compared to a set of pressures generated
+by means of the standard called the calibration pressures. The
+results of the comparison are stated in a calibration certificate
+as the deviation between reading and calibration pressure and the associated
+measurement uncertainties. The number of calibrations was rising since the
+founding of the laboratory: over the last decade from about 120 to
+170 per year.  In order to manage this increase, efforts have been
+made since the mid-1990s to automate the calibration systems
+\cite{jouce3, joufm3}.
+
+Digitization was also a design goal for the most
+recently completed primary standard SE3. Here, the automation of
+entire calibration process, from order acceptance to measurement and
+return shipment, was thought along from the beginning. SE3 is used for
+customer calibrations since 2019. Since 2020 the calibration results
+have also been offered routinely in the form of a Digital Calibration
+Certificate (DCC) described in section \ref{ssec:dcc}.  In section
+\ref{ssec:vl-work} the complete workflow is presented based on the SE3
+processes.
+
+% In this process, emphasis is placed on
+% the use of open source software.
+
+
 %\begin{itemize}
 %    \item Background: goal, other partners
 %    \item Purpose of Calibrations
 %    \item Use Cases
 %\end{itemize}
 
-The PTB vacuum metrology group was founded in 1966 at the institute
-Berlin \cite{jou19, jou04}. In addition to research and development,
-the calibration of vacuum gauges falls within the laboratory's
-responsibilities. To this objective, the members of the group ensures
-the realization and dissemination of the pressure scale from
-$1\times10^{-9}\,Pa$ to $1\,kPa$. To cover this pressure range,
-different methodes based on different physical equations are used and
-realized at different facilities.  Such systems are called standards
-or primary standards. This standards are used for research but also
-for calibrations. Calibration customers are from industry and economy,
-from DAkks and also other metrology institutes. At a glace, a
-calibration process runs as follows: Customers sent gauges which are
-installed at the standards. The reading of this gauges are compared to
-the pressure realized by the standards called the calibration
-pressure. This comparison results in a calibration certificate stating
-the deviation between reading and calibration pressure and the
-associated uncertainties. The metrology group issues about 170
-calibration certificates per year.
-
-
-\begin{itemize}
-\item since 2020 DCC offered in addition to the official printed calibration certificate
-\item the pressure scale is realized with 6 primary standards
-\item problem: increasing amount of calibrations decreasing amount of
-  group members|stuff
-\item automation efforts since the 90s \cite{jouce3, joufm3} 
-\item the vacuum metrology group values the use of open source
-  software
-\item Digitization and automation was also a design goal for the most
-  recently completed primary standard SE3.  The automation of all
-  (...what all) processes was thought along from the beginning
-\item in section \ref{ssec:vl-work} a complete workflow is presented based on SE3
-\end{itemize}
-
 % Allgemeine Erklärung Vaclab
-    % Was ist VacLab, Warum, sehr kurz präzise
-    % Hinleitung zum DCC und den Use Case erklären
-    % Von allgemein (Kalibrierung) zu speziell (DCC)
-    % Notwendigkeit der Digitalisierung
+% Was ist VacLab, Warum, sehr kurz präzise
+% Hinleitung zum DCC und den Use Case erklären
+% Von allgemein (Kalibrierung) zu speziell (DCC)
+% Notwendigkeit der Digitalisierung
     
 
 %\enlargethispage{12pt}
@@ -310,13 +314,44 @@ calibration certificates per year.
 \section{Materials \& Methods}
 
 \subsection{Digital Calibration Certificate}
-    %Erklärung was ist das und wieso macht man das?
-    % Austauschformat von informationen 
-    % The DCC provides a unified way of transferring calibration data.
-    
+\label{ssec:dcc}
+
+To ensure the quality of the measuring equipment in industrial
+processes, gauges have to be calibrated on a regular interval. The
+DCC is an effort of the Physikalisch-Technische Bundesanstalt to provide
+a unified way of transferring calibration results from machine (issuing authority) to
+machine (calibration customer) without discontinuity of media. It
+serves for the proof of metrological traceability and enhances 
+manufacturing and quality monitoring processes.
+
+The DCC is based on the internationally approved exchange format
+XML (Extensible Markup Language). Beside the calibration results it
+contains administrative information concerning the recipient and
+issuing authority. It describes the methods used for calibration as well as
+influence and environmental conditions.
+
+% When designing the dcc, particular emphasis was placed on versatility.
+% Units are given in machine-readable form. 
+
+%% Example  Vacuum metrology group(?): receives DCC for voltage,
+% issues pressure DCCs. e.g.:
+% In many/some cases a laboratory is
+% an issuer but also a receiver of a Digital Calibration Certificates... 
+
+%% https://www.ptb.de/cms/en/forschung-entwicklung/mit-metrologie-in-die-zukunft/herausforderung-digitalisierung/kernziel1einheitlichkeitim/digital-calibration-certificate-dcc.html
+
+% An important element of the DCC is the representation of units and
+% measurement data with measurement uncertainties. For this purpose, a
+% proposal for a data model was developed in the Opens external link
+% in new windowEMPIR project SmartCom: the D-SI.
+
+
 \textbf{OB: is it a subsection for SmartCom team?}
 
 \subsection{IT at Vacuum metrology group}
+
+
+Problemfeld nicht gut abgesteckt
 
 \begin{itemize}
 \item The central element of the VacLab infrastructure is the database
