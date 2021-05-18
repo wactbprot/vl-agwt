@@ -350,58 +350,56 @@ influence and environmental conditions.
 
 \subsection{IT at Vacuum metrology group}
 
+\subsection{IT at Vacuum metrology group}
 
-Problemfeld nicht gut abgesteckt
+Statically typed languages and relational databases are well suited
+for well-defined requirements with a clearly formulated problem space.
+The attempt to model the processes in the vacuum metrology lab with
+these tools was abandoned after some setbacks in favour of an approach
+with a schema-free database and dynamically typed languages.
+The NoSQL database CouchDB \cite{couch} is the central infrastructure
+element. CouchDB belongs to the class of document stores. It uses
+Multi-Version Concurrency Control \cite{mvcc} and supports a master-master
+replication mechanism. This mechanism is used to keep the database
+instances running on each of the lab's measuring computers in sync.
+Data is stored in self-contained JSON documents accessible via
+REST \cite{fielding2000architectural} oriented http interfaces. The
+modelling of the processes in the laboratory is achieved with the help of
+these documents. There are a large number of them with a wide variety
+of tasks. Examples are:
+
+\begin{figure}
+    \centering
+    \includegraphics[angle=0, width=0.4\columnwidth]{pictures/vaclab_workflow.pdf}
+    \caption{Workflow of calibration services in the vacuum metrology group. }
+    \label{fig:vl-work}
+\end{figure}
 
 \begin{itemize}
-\item The central element of the VacLab infrastructure is the database
-\item Why CouchDB?
-  \begin{itemize}
-  \item problem: many and changing requirements:
-  \item we are customers of our own: calibration of our measurement
-    devices gives a different context as using them
-    for the calibration of customer gauges 
-  \item changing calibration constants
-  \item long-term history of these objects is a important metrological parameter
-  \item evolving connection protocols with different
-    types of parameter sets 
-  \item attempt to model the problems above with a relational approach
-    was abandoned in favor of a schema-free solution
-\end{itemize}
-\item CouchDB
-  \begin{itemize}
-  \item The NoSQL database CouchDB \cite{couch} is used
-  \item database belongs to the category of document stores
-  \item Multi-Version Concurrency Control (MVCC) and an append-only design
-  \item written in Erlang (telcos, distributed systems)
-  \item master-master replication leads to redundancy 
-  \item network partitions are no problem since no single point of failure
-  \item query language is js
-  \item the documents are stored in JSON format: Java Script Object
-    Notation which is a subset of js so no impedance mismatch
-  \item communication via http: on board in most programming language
+  \item The \emph{servers document} is used to automate the
+    replication of data.
+  \item The \emph{todo documents} (\emph{tdo} in
+    Figure~\ref{fig:vl-work}) describe the aim of the
+    calibration. Here, target pressures, target temperatures and the
+    number of measurement repetitions are defined.
+  \item The \emph{measurement procedure definition} documents describe
+    the steps of a calibration that have to be carried out. These
+    descriptions are formulated in terms of a domain specific language
+    with the idea that everything can be arranged in a sequential
+    series of parallel steps.
+  \item The \emph{calibration} documents (\emph{cal} in
+    Figure~\ref{fig:vl-work}) are combinations of various
+    sub-documents. They consist of dates, presettings, calibration
+    objects with their parameters and serial numbers. Furthermore,
+    fundamental physical constants, conversion factors as well as the raw data and
+    the analysis of a calibration
+    % of one customer gauge  and one specific calibration method
+    is included.
+    \item The \emph{DCC} documents are JSON documents with a structure
+      analogue to the XML structure of the DCC. They are each derived
+      from a calibration document and used to generate the DCC in the
+      XML format by means of a template system.
   \end{itemize}
-  
-\item Examples of documents in the Vacuum metrology group database: 
-  \begin{itemize}
-  \item server document ... used to automate the replication 
-  \item todo documents (\emph{tdo} in  Figure~\ref{fig:vl-work}) ...
-    describe the aim of the calibration, the
-    outcome: target pressures, target temperatures, kind of analysis,
-    number of repeat measurements
-  \item measurement operation definitions... a domain specific
-    language (dsl) describing the steps of a calibration or measurement:
-    core idea is: everything can be ordered in sequential and
-    parallel steps
-  \item calibration documents (\emph{cal} in  Figure~\ref{fig:vl-work})... 
-    stand alone descriptions combination
-    of: dates presettings; calibration objects with parameters serial
-    numbers; nature constants and conversion factors; as well as
-    the raw data and the analysis of the calibration of one device and
-    one specific calibration method 
-    \item DCC document ... JSON document with a structure analog to the DCC xml structure
-  \end{itemize}
-\end{itemize}
 
 \subsection{Vacuum metrology group workflow}
 \label{ssec:vl-work}
