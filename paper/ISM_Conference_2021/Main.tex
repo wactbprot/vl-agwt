@@ -349,8 +349,7 @@ influence and environmental conditions.
 \textbf{OB: is it a subsection for SmartCom team?}
 
 \subsection{IT at Vacuum metrology group}
-
-\subsection{IT at Vacuum metrology group}
+\label{ssec:vlit}
 
 Statically typed languages and relational databases are well suited
 for well-defined requirements with a clearly formulated problem space.
@@ -399,68 +398,101 @@ of tasks. Examples are:
       analogue to the XML structure of the DCC. They are each derived
       from a calibration document and used to generate the DCC in the
       XML format by means of a template system.
-  \end{itemize}
+\end{itemize}
 
-\subsection{Vacuum metrology group workflow}
+Further documents and their function are introduced and discussed in
+section \ref{ssec:vl-work}.
+
+\subsection{Vacuum metrology group calibration workflow}
 \label{ssec:vl-work}
 
-\begin{figure}
-    \centering
-    \includegraphics[angle=0, width=0.4\columnwidth]{pictures/vaclab_workflow.pdf}
-    \caption{Workflow of vacuum metrology group. }
-    \label{fig:vl-work}
-\end{figure}
+In this section the modelling of calibration processes and their relation
+to the database documents mentioned in section \ref{ssec:vlit} will be
+discussed in more detail.  For this purpose the workflow is sketched
+in Figure~\ref{fig:vl-work}. The workflow can be separated into different steps:
 
-Workflow along the working steps at SE3
-\begin{itemize}
+\begin{enumerate}
   
-\item starts with CalibrationRequest by e-mail or via REST interface:
-  planning of the calibration: Who, where, when, how many devices
-  planning document (\emph{pla} in  Figure~\ref{fig:vl-work}) gives offer.pdf
-\item Customer gives confirmation leading to generation of confirmation.pdf, declaration.pdf
-\item planning document is converted to bureaucracy document (\emph{bur} in  Figure~\ref{fig:vl-work}) and a
-  calibration document for each of the devices requested for
-  calibration
-\item the gauges arrive, measurement maintainer (name is stored in
-  calibration document) checks serial numbers and settings
-\item calibration document is supplemented by the calibration objects 
-    (\emph{cob1}, \emph{cob2} ...  in  Figure~\ref{fig:vl-work}) document
-\item gauges are attached to SE3 (up to ten gauges in one calibration
-  run)
-\item after pump down, a specific measurement operation definition is
-  executed: outgassing, add volume, leak test, checks for T-sensors and
-  pressure devices are tested and measured
-\item calibration processes are also defined as an measurement
-  operation definition document
-\item for one target point about 400 steps are executed
-\item about 15 target points for a usual calibration
-\item several calibration methods depending on the pressure range e.g.
-\item - continuous expansion method [\cite{} ]
-\item - static expansion method [\cite{} ] expansion
-\item - direct comparison
-\item - use of pressure balances
-\item again: one calibration document for each of the methods
-\item automated preliminary analysis for every completed target
-  pressure
-\item detailed analysis if all target pressures are measured
-\item calculation of additional parameters like offset scatter,
-  viscosity parameters, temperature corrections
+\item The calibration process starts with a \emph{calibration
+  request}. Up to now, these requests were done by email or phone. A request
+  should contain information about the class and number of devices to be
+  calibrated. This kind of information is represented in the \emph{todo
+    documents} % mentioned in section \ref{ssec:vlit} 
+  (\emph{tdo} in Figure~\ref{fig:vl-work}).  The metrology group's database contains
+  information about customers in the form of \emph{customer documents}
+  (\emph{cus} in Figure~\ref{fig:vl-work}). For new customers such
+  documents are generated. In this case address details and contact
+  information are demanded. 
   
-\item repeat the measurement of suspicious target points
-\item generation of certificate document (\emph{cert} in  Figure~\ref{fig:vl-work}): 
-    combination of all calibration documents for a certain device
-\item certificate document used to generate LaTeX source and a pdf
-  version of the calibration certificate
-\item second analysis whereby the cert is the data source: a second
-  program crosschecks the measured and calculated data
-\item generation of JSON DCC (\emph{dcc} in  Figure~\ref{fig:vl-work}) 
-    document used to generate the DCC in xml
-  format 
-\item validation of DCC via REST interface
-\item Status update !!
-\item shipping the device back to the customer: bureaucracy
-  document gives shipping-label.pdf, shipping-order.pdf
-\end{itemize}
+\item A \emph{customer document} and one or more
+  \emph{todo documents} are combined to a \emph{planning document}
+  (\emph{pla} in Figure~\ref{fig:vl-work}). Besides other functions,
+  \emph{planning documents} are used to generate an offer letter for
+  the customer via \LaTeX. They also serve as placeholders in the 
+  calendar of the group to reserve the time slots for calibration.  % provided directly from the database.
+  
+\item In case the customer accepts the offer, a \emph{bureaucracy
+  document} (\emph{bur} in Figure~\ref{fig:vl-work}) and a
+  corresponding number of \emph{calibration documents} (\emph{cal1,
+    cal2, ..} in Figure~\ref{fig:vl-work}) are derived from the
+  \emph{planning document}. During this process, file numbers are
+  assigned and calibration certificate numbers are allocated. The
+  \emph{bureaucracy document} is used to generate the letter of
+  confirmation and a declaration letter for the customer also via
+  \LaTeX.
+
+\item After the arrival of the customer's equipment, the next steps are mainly
+  carried out on the \emph{calibration documents}. There is at least one of
+  them for each of the devices under test (DUT). The database documents
+  for the DUT, the \emph{calibration object documents} (\emph{cob1},
+  \emph{cob2} ...  in Figure~\ref{fig:vl-work}) are inserted into
+  the corresponding \emph{calibration document}. Beforehand, settings,
+  connection parameters, serial numbers are checked and verified.
+
+\item The DUTs are attached to the primary standard. Up to ten gauges
+  can be handled in one calibration run. After the system is pumped
+  down to an appropriate base pressure, a specific \emph{measurement
+    procedure definition} is executed. Parameters like outgassing
+  rate and additional volume introduced by the DUT are measured. Leak
+  tests and checks of the performance of the temperature sensors are performed.
+  Then the calibration is carried out and the measurement results as well as
+  the analysis are stored in the \emph{calibration documents}.
+
+\item The calibration processes itself is also defined by means of a
+  \emph{measurement procedure definition document}.  For the
+  generation of one target pressure about 400 steps have to be
+  executed. It takes about 15 target pressures distributed over three
+  orders of magnitude for a typical calibration of a vacuum
+  gauge. Often different methods like the continuous expansion method,
+  the static expansion method or a direct comparison with a pressure
+  balance have to be combined.  %% \cite{}s for the methods?
+  
+\item The measurement is followed by a detailed analysis of the data
+  obtained during the calibration. Parameters such as offset scatter,
+  viscosity parameters and temperature corrections are calculated in addition to the
+  calibration target agreed in the \emph{todo document}.
+  Here, special attention is payed to the read-only access of raw
+  data. The derived data are stored in a separate section of the
+  \emph{calibration document}.
+  
+\item The generation of the \emph{certificate documents} (\emph{cer}
+  in Figure~\ref{fig:vl-work}) follows.  These documents are derived
+  from the \emph{calibration documents}. With the help of the
+  \emph{certificate documents} a printable version of the calibration
+  certificate is generated via \LaTeX. Its digital version is the
+  basis for a second analysis: a further program crosschecks the
+  measured and calculated data.
+  
+\item Since 2020, the \emph{certificate documents} are used for the
+  generation of a JSON version of the DCC (\emph{dcc} in
+  Figure~\ref{fig:vl-work}). This document allows the generation of the DCC
+  in XML format with low effort. A validation of the DCC is automatically performed.
+
+\item The workflow is completed with the return of the customer's
+  equipment. The shipping label is generated by means of the 
+  \emph{bureaucracy document} via \LaTeX.
+\end{enumerate}
+
 
 
 \subsection{Declaration of Conformity}
@@ -495,6 +527,13 @@ Similar to the procedure described in section V, the client uploads an XML file 
 Implementation Results
 
 \subsection{VacLab}
+
+
+  For the cooperation with AnGeWaNt
+  project, a third way was implemented in the form of a REST
+  interface. 
+
+
 %Austausch mit Angewant
 % Welche Anpassungen waren notwendig
 % Hamronisierte REST Schnittstellen vorteilhaft
