@@ -9,7 +9,7 @@
             [vlagwt.score :as s]
             [vlagwt.utils :as u]))
 
-(defn not-found [] (res/response {:error "not found"}))
+(defn not-found [] (res/response {:ok false :error "not found"}))
 
 (defn raw-cal-req [req]
   (->> (u/req->req-id req)
@@ -40,6 +40,8 @@
         result (i/check inq todos)]
     (if (contains? result :ok)
       (if (i/mail-ok? (i/send-mail! (i/inq->mail-body inq)))
-        (res/response {:ok (db/saved? (db/put-doc (i/pla-doc inq todos)))})
-        (res/status (res/response {:error "Failed notification Email"}) 500))
-      (res/status (res/response result) 400))))
+        (if (db/saved? (db/put-doc (i/pla-doc inq todos)))
+          (res/response {:ok true :error nil})
+          (res/status (res/response {:ok false :error "Failed database put"}) 500))
+        (res/status (res/response {:ok false :error "Failed notification Email"}) 500))
+      (res/status (res/response (assoc result :ok false)) 400))))
