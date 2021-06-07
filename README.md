@@ -37,6 +37,18 @@ which leads to the following steps:
 * sends a notification email
 * stores the document (`pla`) in the vl database
 
+If everything goes right the reply is:
+
+```json
+{"ok":true,"error":null}
+```
+
+in case of an error:
+
+```json
+{"error":"<description of reason for error>", "ok":false}
+```
+
 ## request the dcc(s)
 
 ```shell

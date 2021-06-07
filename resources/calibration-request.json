@@ -37,7 +37,7 @@
 	"Device": [
 	    {
 		"Type": null,
-		"ToDoName": "CDG von: 0.001mbar bis: 0.1mbar mit 15 Messpunkten",
+		"ToDoName": "SRG von: 0.1Pa bis: 1Pa mit 5 Messpunkten",
 		"Amount": 1
 	    }
 	],

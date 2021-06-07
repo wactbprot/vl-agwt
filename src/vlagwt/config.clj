@@ -15,8 +15,8 @@
    (db-conn c :read))
   ([c op]
   (let [lt-srv (System/getenv "CMP_LT_SRV")
-        usr    nil #_(System/getenv "CAL_USR")
-        pwd    nil #_(System/getenv "CAL_PWD")]
+        usr    (System/getenv "CAL_USR")
+        pwd    (System/getenv "CAL_PWD")]
     (str (:db-prot c) "://"
          (when (and usr pwd) (str usr ":" pwd "@"))
          (or lt-srv (:db-srv c)) ":"
