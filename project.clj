@@ -1,4 +1,4 @@
-(defproject vlagwt "0.8.0"
+(defproject vlagwt "0.9.0"
   :description "A VacLab interface."
   :url "https://gitlab1.ptb.de/bock04/vlagwt"
   :license {:name "BSD 2-Clause"

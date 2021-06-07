@@ -26,6 +26,12 @@
 
 (defn todo [req] (res/response (u/db-req->key (db/todo :all))))
 
+(defn planning [req]
+  (let [v (u/db-req->value (db/planning (u/req->req-id req)))]
+    (if (empty? v)
+      (res/status (res/response {:error "Not found" :ok false}) 400)
+      (res/response (first v)))))
+
 (defn pla-doc [req]
   (let [inq    (u/req->inq req)
         todos  (db/todo :all)

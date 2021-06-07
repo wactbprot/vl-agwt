@@ -32,6 +32,13 @@
      (couch/get-view conn d v)
      (couch/get-view conn d v {:key id}))))
 
+(defn planning
+  "Returns all dcc belonging to a calibration request."
+  ([id]
+   (planning c/config id))
+  ([{conn :write-db-conn d :db-planning-design v :db-planning-view} id]
+   (couch/get-view conn d v {:key id})))
+
 (defn saved? [m] (contains? m :_rev))
 
 ;;------------------------------
