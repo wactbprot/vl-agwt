@@ -1,15 +1,22 @@
-# An agwt to vl REST interface
+# vlagwt
 
-Set:
+An agwt to vl REST interface.
 
-```shell
-URL=http://localhost:9099
-```
-if the server runs at `localhost`. For `PUT` or `POST` of json data set the content type by:
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
+**Table of Contents**
 
-```shell
-H="Content-Type: application/json"
-```
+- [vlagwt](#vlagwt)
+    - [Installation](#installation)
+    - [Start server](#start-server)
+    - [API](#api)
+        - [available calibration procedures (ToDo)](#available-calibration-procedures-todo)
+        - [convert a calibration request](#convert-a-calibration-request)
+        - [request a calibration](#request-a-calibration)
+        - [planning request](#planning-request)
+        - [request the dcc(s)](#request-the-dccs)
+
+<!-- markdown-toc end -->
+
 
 ## Installation
 
@@ -22,6 +29,18 @@ java -jar vlagwt-x.y.z-standalone.jar
 ```
 
 ## API
+
+Set:
+
+```shell
+URL=http://localhost:9099
+```
+if the server runs at `localhost`. For `PUT` or `POST` of json data set the content type by:
+
+```shell
+H="Content-Type: application/json"
+```
+
 ### available calibration procedures (ToDo)
 
 ```shell
