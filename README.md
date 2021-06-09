@@ -10,7 +10,7 @@ URL=http://localhost:9099
 ## available calibration procedures (ToDo)
 
 ```shell
-curl -H "$H" $URL/todo
+curl $URL/todo
 ```
 
 ## convert a calibration request
@@ -55,13 +55,13 @@ The `/planning/<RequestId>` endpoint returns the planning document
 belonging to the `<RequestId>`. 
 
 ```shell
-curl -H "$H" $URL/planning/<RequestId>
+curl $URL/planning/<RequestId>
 ```
 
 Example:
 
 ```shell
-curl -H "$H" $URL/planning/34330b0e9f16c21007b37f2d56bf1804
+curl $URL/planning/34330b0e9f16c21007b37f2d56bf1804
 ```
 returns
 
@@ -70,7 +70,7 @@ returns
 ```
 
 ```shell
-curl -H "$H" $URL/planning/foo
+curl $URL/planning/foo
 ```
 returns
 
@@ -81,7 +81,7 @@ returns
 ## request the dcc(s)
 
 ```shell
-curl -H "$H"  $URL/dcc/<RequestId>
+curl $URL/dcc/<RequestId>
 ```
 
 ## Installation
