@@ -1,6 +1,6 @@
 (ns vlagwt.score
   ^{:author "Thomas Bock <thomas.bock@ptb.de>"
-    :doc "Finds the max score: the currebt state of the calibration
+    :doc "Finds the max score: the current state of the calibration
     request."}
   (:require [vlagwt.config :as c]
             [clojure.string :as string]
