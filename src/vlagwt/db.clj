@@ -25,7 +25,7 @@
 
 
 (defn todo
-  "Returns `:all` (or one) dcc belonging to a calibration request."
+  "Returns `:all` (or one) todo belonging to a calibration request."
   ([id]
    (todo c/config id))
   ([{conn :read-db-conn d :db-todo-design v :db-todo-view} id]
