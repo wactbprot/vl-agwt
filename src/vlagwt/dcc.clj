@@ -5,8 +5,8 @@
 (defn res-map->url
   ([m]
    (res-map->url c/config m))
-  ([{conn :db-conn} m]
-   (str conn "/" (:id m) "/" (:value m))))
+  ([{conn :db-conn} {id :id value :value}]
+   (str conn "/" id "/" m)))
 
 (defn get-xml [v] (pmap #(:body @(http/get (res-map->url %))) v))
  
