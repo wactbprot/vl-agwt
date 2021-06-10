@@ -7,7 +7,8 @@
 ;; utils
 ;;------------------------------
 (defn cal-req
-  "Returns all docs belonging to a calibration request."
+  "Returns `:all` docs belonging to a calibration request or a 
+  document with the id `id`."
   ([id]
    (cal-req c/config id))
   ([{conn :read-db-conn d :db-req-design v :db-req-view} id]
@@ -24,7 +25,7 @@
 
 
 (defn todo
-  "Returns all dcc belonging to a calibration request."
+  "Returns `:all` (or one) dcc belonging to a calibration request."
   ([id]
    (todo c/config id))
   ([{conn :read-db-conn d :db-todo-design v :db-todo-view} id]
@@ -33,7 +34,7 @@
      (couch/get-view conn d v {:key id}))))
 
 (defn planning
-  "Returns all dcc belonging to a calibration request."
+  "Returns the planning document with the id `id`."
   ([id]
    (planning c/config id))
   ([{conn :write-db-conn d :db-planning-design v :db-planning-view} id]
@@ -72,7 +73,7 @@
 ;; put doc
 ;;------------------------------
 (defn put-doc
-  "Puts a document to the long term memory."
+  "Puts a document to the database."
   [doc]
   (try
     (couch/put-document (:write-db-conn c/config) (rev-refresh doc))
