@@ -29,7 +29,7 @@
 (defn planning [req]
   (let [v (u/db-req->value (db/planning (u/req->req-id req)))]
     (if (empty? v)
-      (res/status (res/response {:error "Not found" :ok false}) 400)
+      (res/status (res/response {:error "Not found" :ok false}) 404)
       (res/response (first v)))))
 
 (defn pla-doc [req]
