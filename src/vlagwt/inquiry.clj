@@ -11,7 +11,7 @@
   (def inq (che/decode
             (-> (io/resource "calibration-request.json")
                 slurp) true))
-  
+
   (def conf c/config)
   (che/encode inq))
 
@@ -48,7 +48,9 @@
 
 (defn inq->todo-names [m] (mapv :ToDoName (inq->devices m)))
 
-(defn inq->comment [m] (not-empty (get-in (inq->main m) [:Comment])))
+(defn inq->comment [m] (not-empty (str (get-in (inq->main m) [:Comment]))))
+
+(defn inq->repeat [m] (get-in (inq->main m) [:RepeatMonth]))
 
 ;;----------------------------------------------------------
 ;; path date
@@ -72,7 +74,7 @@
 
 (defn main-parts-ok? [m]
   (and (map? (not-empty (inq->customer m)))
-       (vector? (not-empty (inq->device m))))) 
+       (vector? (not-empty (inq->device m)))))
 
 (defn device-amount-ok? [m] (every? integer? (inq->amounts m)))
 
@@ -126,24 +128,26 @@
    (pla-doc c/config inq todos))
   ([config inq todos]
    {:_id  (inq->pla-doc-id inq)
-    :Planning {:RequestId (inq->req-id inq)
-               :Date [(inq->desired-date inq) (inq->ref-date inq) (inq->schedule-date inq)]
-               :Customer (inq->customer inq)
-               :Device (inq->devices-with-todo inq todos)
-               :Comment (inq->comment inq)
-               :PostReminder true
-               :PreReminder true}}))
+    :Planning (merge
+               {:RequestId (inq->req-id inq)
+                :Date [(inq->desired-date inq) (inq->ref-date inq) (inq->schedule-date inq)]
+                :Customer (inq->customer inq)
+                :Device (inq->devices-with-todo inq todos)
+                :PostReminder true
+                :PreReminder true}
+               (when-let [r (inq->repeat inq)] {:RepeatMonth r})
+               (when-let [c (inq->comment inq)] {:Comment c}))}))
 
 ;;----------------------------------------------------------
 ;; notification mail
-;;---------------------------------------------------------- 
+;;----------------------------------------------------------
 (defn mail-ok? [m] (zero? (:code m)))
 
 (defn inq->notif-link [config m] (str (:write-db-conn config) "/" (inq->pla-doc-id m)))
 
 (defn inq->mail-body
   ([inq]
-   (inq->mail-body c/config inq)) 
+   (inq->mail-body c/config inq))
   ([{nm :notif-mail fm :from-mail :as config} m]
    (let [name    (inq->customer-name m)
          comment (inq->comment m)]
@@ -163,4 +167,3 @@
    (send-mail! c/config body))
   ([{host :smtp-host-map} body]
    (m/send-message host body)))
-
