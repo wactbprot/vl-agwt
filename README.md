@@ -22,10 +22,22 @@ An agwt to vl REST interface.
 
 Download latest standalone `jar` from http://a75438.berlin.ptb.de/vlagwt/
 
-## Start server
+## Start server 
 
 ```shell
 java -jar vlagwt-x.y.z-standalone.jar
+```
+
+## systemd
+
+```shell
+cd /path/to/vlagwt
+sudo mkdir /usr/local/share/vlagwt
+sudo cp vlagwt.jar /usr/local/share/vlagwt
+sudo cp vlagwt.service  /etc/systemd/system/
+sudo systemctl enable vlagwt.service
+sudo systemctl start vlagwt.service
+sudo systemctl status vlagwt.service
 ```
 
 ## API

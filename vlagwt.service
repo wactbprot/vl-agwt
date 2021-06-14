@@ -1,0 +1,13 @@
+[Unit]
+Description=The VacLab Proxy
+After=syslog.target network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/usr/local/share/vlagwt
+ExecStart=/usr/bin/java -Xmx1024M -Xms1024M -jar vlagwt.jar nogui
+Restart=on-failure
+SuccessExitStatus=143
+
+[Install]
+WantedBy=multi-user.target
