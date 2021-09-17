@@ -23,7 +23,6 @@
   ([{conn :read-db-conn d :db-dcc-design v :db-dcc-view} id]
    (couch/get-view conn d v {:key id})))
 
-
 (defn todo
   "Returns `:all` (or one) todo belonging to a calibration request."
   ([id]
